@@ -7,18 +7,22 @@ import {
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import User from './pages/User';
 
 function App() {
     return (
         <BrowserRouter>
             <Nav />
             
-            <main>
-                <Routes>
-                    <Route exact path="/" element={<Home />} />
-                    {/*<Route path="*" element={<NotFound />} />*/}
-                </Routes>            
-            </main>  
+            
+            <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/sign-in" element={<SignIn />} />
+                <Route excat path="/user" element={<User />} />
+                {/*<Route path="*" element={<NotFound />} />*/}
+            </Routes>            
+            
 
             <Footer />
                 

@@ -2,7 +2,7 @@ import chat from '../assets/img/icon-chat.png';
 import money from '../assets/img/icon-money.png';
 import security from '../assets/img/icon-security.png';
 
-export const items=[
+export const items= [
 	{
         "image": chat,
         "alt": "Chat Icon",

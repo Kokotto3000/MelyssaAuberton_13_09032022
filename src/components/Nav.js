@@ -15,10 +15,10 @@ function Nav() {
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
             <div>
-                <a className="main-nav-item" href="./sign-in.html">
+                <Link to="/sign-in" className="main-nav-item">
                     <i className="fa fa-user-circle"></i>
                     Sign In
-                </a>
+                </Link>
             </div>
         </nav>
     );
