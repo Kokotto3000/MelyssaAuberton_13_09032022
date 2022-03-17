@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
-export function useFetch(url) {
+export function useFetch({url, email, password}) {
+
   const [data, setData] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -10,7 +11,16 @@ export function useFetch(url) {
     setLoading(true);
     async function fetchData() {
       try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "email": email,
+            "password": password
+          })
+        });
         const data = await response.json();
         setData(data);
       } catch (err) {
@@ -21,6 +31,6 @@ export function useFetch(url) {
       }
     }
     fetchData();
-  }, [url])
+  }, [])
   return { isLoading, data, error };
 }

@@ -10,12 +10,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
 
-import { useFetch } from "./utils/useFetch";
-
 function App() {
-
-    const { isLoading, data, error }= useFetch("http://localhost:3001/api/v1/user/login");
-    console.log(data);
 
     return (
         <BrowserRouter>
