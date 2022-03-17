@@ -3,6 +3,7 @@ import Account from "../components/Account";
 
 import accounts from '../datas/accounts';
 
+
 function User() {
 
     return (
@@ -12,7 +13,7 @@ function User() {
             <h2 className="sr-only">Accounts</h2>
 
             {accounts[0].account.map((element, index)=> (
-                <Account key={ index } title={ element.title } amount={ element.amount } description={ element.description } description={ element.description } />
+                <Account key={ index } title={ element.title } amount={ element.amount } description={ element.description } />
             ))}
         </main>
     )
