@@ -49,7 +49,7 @@ function Login() {
             if(data.status=== 200){
                 console.log(data);
                 setData(data);
-                localStorage.clear();
+                //localStorage.clear();
                 sessionStorage.setItem("jwt", data.body.token);
                 navigate("/profile");
             }

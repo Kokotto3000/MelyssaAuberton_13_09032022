@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "../styles/TransactionsDropdown.scss";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
-const pen= <FontAwesomeIcon icon={faPen} />
+const pen= <FontAwesomeIcon icon={faPen} />;
 
 function TransactionsDropdown({type, category, notes}){
 
