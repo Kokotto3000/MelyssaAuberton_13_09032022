@@ -8,8 +8,8 @@ import {
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import User from './pages/User';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
 import Transactions from './pages/Transactions';
 
 function App() {
@@ -20,9 +20,9 @@ function App() {
             
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route exact path="/sign-in" element={<SignIn />} />
-                <Route exact path="/user" element={<User  />} />
-                <Route path="/profile" element={<Navigate to="/user" />} />
+                <Route exact path="/login" element={<Login />} />
+                <Route exact path="/profile" element={<Profile  />} />
+                {/*<Route path="/profile" element={<Navigate to="/user" />} />*/}
                 <Route exact path="/transactions" element={<Transactions />} />
                 {/*<Route path="*" element={<NotFound />} />*/}
             </Routes>

@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+import ProfileHeader from "../components/ProfileHeader";
 import Account from "../components/Account";
 
 import accounts from '../datas/accounts';
@@ -6,7 +6,7 @@ import accounts from '../datas/accounts';
 import { useState, useEffect } from "react";
 
 
-function User() {
+function Profile() {
 
     const token= localStorage.getItem("jwt");
 
@@ -52,7 +52,7 @@ function User() {
     return (
         console.log(data.body.firstName),
         <main className="main bg-dark">
-            <Header name={data.body.firstName} />
+            <ProfileHeader name={data.body.firstName} />
 
             <h2 className="sr-only">Accounts</h2>
 
@@ -63,4 +63,4 @@ function User() {
     )
 }
 
-export default User;
+export default Profile;

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SignIn() {
+function Login() {
 
     const navigate= useNavigate();
 
@@ -51,7 +51,7 @@ function SignIn() {
                 setData(data);
                 
                 localStorage.setItem("jwt", data.body.token);
-                navigate("/user");
+                navigate("/profile");
             }
             
         } catch (err) {
@@ -62,7 +62,7 @@ function SignIn() {
         }
         }
         fetchData();
-    }, [email, password]);
+    }, [email, password, navigate]);
 
     if(error) return <p>error</p>;
 
@@ -99,4 +99,4 @@ function SignIn() {
     )
 }
 
-export default SignIn;
+export default Login;

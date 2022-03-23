@@ -1,6 +1,6 @@
-import '../styles/Header.scss';
+import '../styles/ProfileHeader.scss';
 
-function Header(props) {
+function ProfileHeader(props) {
 
     return (
         <div className="header">
@@ -10,4 +10,4 @@ function Header(props) {
     )
 }
 
-export default Header;
+export default ProfileHeader;
