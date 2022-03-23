@@ -49,8 +49,8 @@ function Login() {
             if(data.status=== 200){
                 console.log(data);
                 setData(data);
-                
-                localStorage.setItem("jwt", data.body.token);
+                localStorage.clear();
+                sessionStorage.setItem("jwt", data.body.token);
                 navigate("/profile");
             }
             

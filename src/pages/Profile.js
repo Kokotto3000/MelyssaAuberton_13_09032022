@@ -5,12 +5,9 @@ import accounts from '../datas/accounts';
 
 import { useState, useEffect } from "react";
 
-
 function Profile() {
 
-    const token= localStorage.getItem("jwt");
-
-    console.log(token);
+    const token= sessionStorage.getItem("jwt");
 
     const [data, setData] = useState({});
     const [isLoading, setLoading] = useState(true);
@@ -30,7 +27,7 @@ function Profile() {
             });
             const data = await response.json();
             if(data.status=== 200){
-                console.log(data);
+                //console.log(data);
                 setData(data);
             }
             
@@ -50,16 +47,17 @@ function Profile() {
 
 
     return (
-        console.log(data.body.firstName),
+
         <main className="main bg-dark">
             <ProfileHeader name={data.body.firstName} />
 
             <h2 className="sr-only">Accounts</h2>
 
-            {accounts[0].account.map((element, index)=> (
+            {accounts.map((element, index)=> (
                 <Account key={ index } title={ element.title } amount={ element.amount } description={ element.description } />
             ))}
         </main>
+
     )
 }
 
