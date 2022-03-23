@@ -2,7 +2,8 @@ import './App.scss';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -16,14 +17,13 @@ function App() {
         <BrowserRouter>
             <Nav />
             
-            
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/sign-in" element={<SignIn />} />
-                <Route exact path="/user" element={<User />} />
+                <Route exact path="/user" element={<User  />} />
+                <Route path="/profile" element={<Navigate to="/user" />} />
                 {/*<Route path="*" element={<NotFound />} />*/}
-            </Routes>            
-            
+            </Routes>
 
             <Footer />
                 

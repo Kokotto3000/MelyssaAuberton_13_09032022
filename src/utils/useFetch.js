@@ -1,12 +1,20 @@
 import { useState, useEffect } from 'react';
 
-export function useFetch({url, email, password}) {
+export function useFetch(url, email, password) {
+
+  const body= JSON.stringify({
+    "email": email,
+    "password": password
+  });
+
+  //console.log(body);
 
   const [data, setData] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    //console.log(body)
     if (!url) return;
     setLoading(true);
     async function fetchData() {
@@ -16,12 +24,10 @@ export function useFetch({url, email, password}) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            "email": email,
-            "password": password
-          })
+          body: body
         });
         const data = await response.json();
+        //console.log(data)
         setData(data);
       } catch (err) {
         console.log(err);
@@ -31,6 +37,6 @@ export function useFetch({url, email, password}) {
       }
     }
     fetchData();
-  }, [])
+  }, [email, password, url])
   return { isLoading, data, error };
 }

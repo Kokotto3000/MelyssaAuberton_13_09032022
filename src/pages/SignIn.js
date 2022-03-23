@@ -2,9 +2,12 @@ import '../styles/SignIn.scss';
 import { useFetch } from "../utils/useFetch";
 //utilisation de useForm pour éviter les render inutiles dès qu'on change qqch dans les champs du formulaire
 import { useForm } from "react-hook-form";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+
+    const navigate= useNavigate();
 
     const [email, setEmail]= useState("");
     const [password, setPassword]= useState("");
@@ -14,14 +17,56 @@ function SignIn() {
         handleSubmit,
         formState: {errors} 
     } = useForm();
-    const onSubmit = data => {
-        console.log(data);
-        setEmail(data.email);
-        setPassword(data.password);
+
+    const onSubmit = input => {
+        console.log(input);
+        setEmail(input.email);
+        setPassword(input.password);
+        
     };
 
-    const { isLoading, data, error }= useFetch("http://localhost:3001/api/v1/user/login", email, password);
-    console.log(data, isLoading, error);
+    const [data, setData] = useState({});
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        //console.log(body)
+        //if (!url) return;
+        setLoading(true);
+        async function fetchData() {
+        try {
+            const response = await fetch("http://localhost:3001/api/v1/user/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "email": email,
+                "password": password
+            })
+            });
+            const data = await response.json();
+            if(data.status=== 200){
+                console.log(data);
+                setData(data);
+                
+                localStorage.setItem("jwt", data.body.token);
+                navigate("/user");
+            }
+            
+        } catch (err) {
+            console.log("error : " + err);
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
+        }
+        fetchData();
+    }, [email, password]);
+
+    if(error) return <p>error</p>;
+
+    if(isLoading) return <p>Loading</p>;
     
     return (
         <main className="main bg-dark">
