@@ -19,8 +19,7 @@ function Profile() {
     useEffect(() => {
 
         if(!token){
-            
-            navigate('/');
+            navigate('/login');
             return;
         }
         //
