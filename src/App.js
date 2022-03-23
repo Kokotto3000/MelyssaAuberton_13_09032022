@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import User from './pages/User';
+import Transactions from './pages/Transactions';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route exact path="/sign-in" element={<SignIn />} />
                 <Route exact path="/user" element={<User  />} />
                 <Route path="/profile" element={<Navigate to="/user" />} />
+                <Route exact path="/transactions" element={<Transactions />} />
                 {/*<Route path="*" element={<NotFound />} />*/}
             </Routes>
 

@@ -1,6 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import '../styles/Account.scss';
 
 function Account(props) {
+
+    const navigate= useNavigate();
+
+    function handleClick(){
+        console.log(props)
+        navigate("/transactions", { state: { title: props.title, amount: props.amount, description: props.description } });
+    }
 
     return (
         <section className="account">
@@ -10,7 +18,7 @@ function Account(props) {
                 <p className="account-amount-description">{ props.description }</p>
             </div>
             <div className="account-content-wrapper cta">
-                <button className="transaction-button">View transactions</button>
+                <button className="transaction-button" onClick={handleClick}>View transactions</button>
             </div>
         </section>
     )
