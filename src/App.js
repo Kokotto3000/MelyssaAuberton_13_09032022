@@ -24,7 +24,7 @@ function App() {
                 <Route exact path="/profile" element={<Profile  />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route exact path="/transactions" element={<Transactions />} />
-                {/*<Route path="*" element={<NotFound />} />*/}
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
 
             <Footer />

@@ -30,6 +30,9 @@ function Login() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
+
+        //penser à une redirection si user déjà connecté
+        
         //console.log(body)
         //if (!url) return;
         setLoading(true);
