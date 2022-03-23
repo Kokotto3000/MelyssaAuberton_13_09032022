@@ -4,8 +4,11 @@ import Account from "../components/Account";
 import accounts from '../datas/accounts';
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+
+    const navigate= useNavigate();
 
     const token= sessionStorage.getItem("jwt");
 
@@ -14,6 +17,13 @@ function Profile() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
+
+        if(!token){
+            
+            navigate('/');
+            return;
+        }
+        //
         //console.log(body)
         //if (!url) return;
         setLoading(true);

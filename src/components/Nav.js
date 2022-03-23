@@ -20,7 +20,7 @@ function Nav() {
 
     const token= sessionStorage.getItem("jwt");
 
-    console.log(token);
+    //console.log(token);
 
     function handleClick(){
         sessionStorage.clear();
@@ -41,7 +41,7 @@ function Nav() {
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
                 <div>
-                    <button className="main-nav-item" onClick={handleClick}>
+                    <button className="main-nav-item" onClick={ handleClick }>
                         { userCircle }
                         Sign Out
                     </button>
