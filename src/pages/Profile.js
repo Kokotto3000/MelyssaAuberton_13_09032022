@@ -49,7 +49,7 @@ function Profile() {
     return (
 
         <main className="main bg-dark">
-            <ProfileHeader name={data.body.firstName} />
+            <ProfileHeader firstName={data.body.firstName} lastName={data.body.lastName} />
 
             <h2 className="sr-only">Accounts</h2>
 

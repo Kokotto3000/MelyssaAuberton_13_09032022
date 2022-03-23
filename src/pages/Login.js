@@ -1,5 +1,5 @@
 import '../styles/SignIn.scss';
-import { useFetch } from "../utils/useFetch";
+//import { useFetch } from "../utils/useFetch";
 //utilisation de useForm pour éviter les render inutiles dès qu'on change qqch dans les champs du formulaire
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from 'react';
@@ -76,11 +76,11 @@ function Login() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-wrapper">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" {...register("email", { required: true })}/>
+                        <input type="email" name="email" id="email" {...register("email", { required: true })}/>
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" {...register("password", { required: true })}/>
+                        <input type="password" name="password" id="password" {...register("password", { required: true })}/>
                     </div>
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" name="remember-me" {...register("remember-me")} />

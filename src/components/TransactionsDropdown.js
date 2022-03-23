@@ -3,7 +3,7 @@ import "../styles/TransactionsDropdown.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 
-const pen = <FontAwesomeIcon icon={faPen} />
+const pen= <FontAwesomeIcon icon={faPen} />
 
 function TransactionsDropdown({type, category, notes}){
 
@@ -34,7 +34,6 @@ function TransactionsDropdown({type, category, notes}){
                 <p>Category:</p>
                 <ul className="transactions-dropdown_category-list">
                     {category.map((element, index)=> (
-                    console.log(element),
                      <li key={index}>{ element }</li>
                 ))}
                 </ul>
