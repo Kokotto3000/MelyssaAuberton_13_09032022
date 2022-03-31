@@ -21,8 +21,8 @@ function ProfileHeader({firstName, lastName}) {
 
     const onSubmit = input => {
         console.log(input);
-        setFirstName(input.firstName);
-        setLastName(input.lastName);
+        if(input.firstName) setFirstName(input.firstName);
+        if(input.lastName) setLastName(input.lastName);
         setCollapse(true);
     };
     
@@ -69,22 +69,22 @@ function ProfileHeader({firstName, lastName}) {
     if(!isCollapse){
 
         return (
-            <div className="header">
-            <h1>Welcome back</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <input type="text" name="firstName" id="firstName" {...register("firstName")}></input>
-                    <input type="text" name="lastName" id="lastName" {...register("lastName")}></input>
-                </div>
+            <header className="header">
+                <h1>Welcome back</h1>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div>
+                        <input type="text" name="firstName" placeholder={firstNameInput} id="firstName" {...register("firstName")}></input>
+                        <input type="text" name="lastName" placeholder={lastNameInput} id="lastName" {...register("lastName")}></input>
+                    </div>
 
-                <div>
-                    <button type="submit">Save</button>
-                    <button onClick={handleClick}>Cancel</button>
-                </div>
-                
-                
-            </form>
-        </div>
+                    <div>
+                        <button type="submit">Save</button>
+                        <button onClick={handleClick}>Cancel</button>
+                    </div>
+                    
+                    
+                </form>
+            </header>
         )
     }
 

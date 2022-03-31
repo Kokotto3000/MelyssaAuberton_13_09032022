@@ -1,6 +1,9 @@
 .transactions-dropdown{
     &--type, &--category, &--notes{
         display: flex;
+        align-items: center;
+        &-collapse{
+            display: flex;
+        }
     }
-    
 }

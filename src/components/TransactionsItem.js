@@ -1,8 +1,12 @@
 import { useState } from "react";
 import "../styles/TransactionsItem.scss";
 import TransactionsDropdown from "./TransactionsDropdown";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 function TransactionsItem({date, amount, description, balance, type, category, notes}){
+    const chevronDownIcon= <FontAwesomeIcon icon={faChevronDown} />;
+    const chevronUpIcon= <FontAwesomeIcon icon={faChevronUp} />;
 
     const [isCollapse, setCollapse]= useState(true);
 
@@ -10,8 +14,9 @@ function TransactionsItem({date, amount, description, balance, type, category, n
         setCollapse(isCollapse? false : true);
     }
 
-    const newDate= new Date(date).toString();
-    //console.log(newDate)
+    let options = {year: "numeric", month: "long", day: "numeric"};
+    const newDate= new Date(date).toLocaleDateString('en-EN', options);
+    console.log(newDate)
 
     return(
 
@@ -19,26 +24,37 @@ function TransactionsItem({date, amount, description, balance, type, category, n
 
             <div className="transactions-item_details">
                 {isCollapse? (
-                    <button className="transactions-item_button" onClick={handleCollapse}>V</button>
+                    <button className="transactions-item_button edit-button" onClick={handleCollapse}>
+                        {chevronDownIcon}
+                    </button>
                 ) : (
-                    <button className="transactions-item_button" onClick={handleCollapse}>A</button>
+                    <button className="transactions-item_button edit-button" onClick={handleCollapse}>
+                        {chevronUpIcon}
+                    </button>
                 )}
 
-                <p>{newDate}</p>
-                <p>{description}</p>
-                <p>{amount}</p>
-                <p>{balance}</p>
+                <div className="transactions-item_details-content">
+                    <div className="transactions-item_details-content--principal">
+                        <p>{newDate}</p>
+                        <p>{description}</p>
+                        <p>{amount}</p>
+                        <p>{balance}</p>
+                    </div>
+
+                    {!isCollapse && 
+                        <TransactionsDropdown 
+                            type={type} 
+                            category={category}
+                            notes={notes}
+                        />
+                    }
+                    
+                </div>
+
+                
             </div>
 
-            {!isCollapse? (
-                <TransactionsDropdown 
-                    type={type} 
-                    category={category}
-                    notes={notes}
-                />
-            ) : (
-                ""
-            )}
+            
 
             
             

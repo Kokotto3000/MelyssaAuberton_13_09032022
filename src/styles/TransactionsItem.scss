@@ -1,3 +1,18 @@
+.transactions-item{
+    background-color: white;
+}
+
 .transactions-item_details{
+    display: flex;
+    &-content{
+        width: 100%;
+        &--principal{
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
+
+.transactions-item_button{
     display: flex;
 }

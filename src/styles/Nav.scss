@@ -32,3 +32,12 @@
     max-width: 100%;
     width: 200px;
   }
+
+  .main-nav_sign-out{
+    display: flex;
+    align-items: center;
+    &_button{
+      border: none;
+      background-color: transparent;
+    }
+  }

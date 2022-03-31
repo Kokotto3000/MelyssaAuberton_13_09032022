@@ -21,8 +21,7 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login />} />
-                <Route exact path="/profile" element={<Profile  />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route exact path="/profile" element={<Profile />} />
                 <Route exact path="/transactions" element={<Transactions />} />
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>

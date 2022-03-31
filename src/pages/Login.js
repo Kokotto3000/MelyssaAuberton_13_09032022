@@ -4,13 +4,25 @@ import '../styles/SignIn.scss';
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Error from './Error';
+import Loader from './Loader';
 
 function Login() {
 
+    const token= sessionStorage.getItem("jwt");
+
+    const localEmail= localStorage.getItem("email") || undefined;
+    const localRemember= localStorage.getItem("remember") === "true" ? true : false;
+
     const navigate= useNavigate();
 
-    const [email, setEmail]= useState("");
+    const [email, setEmail]= useState(localEmail);
     const [password, setPassword]= useState("");
+    const [remember, setRemember]= useState(localRemember);
+    //const [data, setData] = useState({});
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [isSubmit, setIsSubmit]= useState(false);
 
     const { 
         register, 
@@ -19,22 +31,20 @@ function Login() {
     } = useForm();
 
     const onSubmit = input => {
-        console.log(input);
+        //console.log(input);
         setEmail(input.email);
         setPassword(input.password);
-        
+        setRemember(input.remember);
+        setIsSubmit(true);
     };
-
-    const [data, setData] = useState({});
-    const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
 
     useEffect(() => {
 
-        //penser à une redirection si user déjà connecté
-        
-        //console.log(body)
-        //if (!url) return;
+        if(token){
+            navigate('/profile');
+            return;
+        }
+
         setLoading(true);
         async function fetchData() {
         try {
@@ -51,25 +61,30 @@ function Login() {
             const data = await response.json();
             if(data.status=== 200){
                 console.log(data);
-                setData(data);
-                //localStorage.clear();
+                if(remember === "true"){
+                    localStorage.setItem("email", email);
+                    localStorage.setItem("remember", remember);
+                }else localStorage.clear();
                 sessionStorage.setItem("jwt", data.body.token);
                 navigate("/profile");
             }
+            if(data.status=== 400){
+                throw data.message;
+            }
             
         } catch (err) {
-            console.log("error : " + err);
-            setError(true);
+            console.log(err);
+            isSubmit && setError(true);
         } finally {
             setLoading(false);
         }
         }
         fetchData();
-    }, [email, password, navigate]);
+    }, [email, password, remember]);
 
-    if(error) return <p>error</p>;
+    if(isLoading) return <Loader />;
 
-    if(isLoading) return <p>Loading</p>;
+    //if(error) return <Error />;
     
     return (
         <main className="main bg-dark">
@@ -79,20 +94,32 @@ function Login() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-wrapper">
                         <label htmlFor="email">Email</label>
-                        <input type="email" name="email" id="email" {...register("email", { required: true })}/>
+                        <input type="email" name="email" id="email" value={localEmail} {...register("email", { required: true })}/>
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
                         <input type="password" name="password" id="password" {...register("password", { required: true })}/>
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" name="remember-me" {...register("remember-me")} />
-                        <label htmlFor="remember-me">Remember me</label>
+                        { localRemember ? 
+                            <>
+                                <input type="checkbox" id="remember-me" name="remember" value="false" {...register("remember")} /> 
+                                <label htmlFor="remember-me">Forget about me</label>
+                            </>
+                        :
+                            <>
+                                <input type="checkbox" id="remember-me" name="remember" value="true" {...register("remember")} /> 
+                                <label htmlFor="remember-me">Remember me</label>
+                            </>
+                        }
+                        
                     </div>
 
                     {/*PLACEHOLDER DUE TO STATIC SITE
                     <Link to="/user" className="sign-in-button">Sign In</Link>
                     SHOULD BE THE BUTTON BELOW*/}
+
+                    { error && <div>Les identifiants sont invalides...</div> }
                     
                     <button type="submit" className="sign-in-button">Sign In</button>
                 </form>

@@ -7,10 +7,7 @@
         "amount" : "$5.00",
         "balance" : "$2,082.79",
         "type" : "Electronic",
-        "category": [
-            "Food",
-            "Other"
-        ],
+        "category": "Food",
         "notes" : ""
     },
     {
@@ -20,10 +17,7 @@
         "amount" : "$10.00",
         "balance" : "$2,087.79",
         "type" : "Electronic",
-        "category": [
-            "Food",
-            "Other"
-        ],
+        "category": "Clothes",
         "notes" : ""
     },
     {
@@ -33,9 +27,7 @@
         "amount" : "$20.00",
         "balance" : "$2,097.79",
         "type" : "Electronic",
-        "category": [
-            "Food"
-        ],
+        "category": "Food",
         "notes" : ""
     },
     {
@@ -45,9 +37,7 @@
         "amount" : "$30.00",
         "balance" : "$2,117.79",
         "type" : "Electronic",
-        "category": [
-            "Food"
-        ],
+        "category": "Food",
         "notes" : ""
     },
     {
@@ -57,9 +47,7 @@
         "amount" : "$40.00",
         "balance" : "$2,147.79",
         "type" : "Electronic",
-        "category": [
-                "Food"
-            ],
+        "category": "Food",
         "notes" : ""
     },
     {
@@ -69,9 +57,7 @@
         "amount" : "$50.00",
         "balance" : "$2,187.79",
         "type" : "Electronic",
-        "category": [
-            "Food"
-        ],
+        "category": "Food",
         "notes" : ""
     }
 ]

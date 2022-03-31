@@ -1,3 +1,24 @@
+.transactions{
+   padding: 1rem 0;
+}
+
+.transactions_table{
+    color: black;
+    border: 1px solid black;
+    width: 90%;
+    margin: 0 auto;
+    //padding: 1.5rem;
+    box-sizing: border-box;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
 .transactions_table-header{
     display: flex;
+    justify-content: flex-end;
+    color: white;
+    &-title{
+        text-align: center;
+        flex-basis: 25%;
+    }
 }

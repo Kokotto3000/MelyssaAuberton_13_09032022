@@ -1,5 +1,7 @@
 import ProfileHeader from "../components/ProfileHeader";
 import Account from "../components/Account";
+import Loader from "./Loader";
+import Error from "./Error";
 
 import accounts from '../datas/accounts';
 
@@ -22,9 +24,7 @@ function Profile() {
             navigate('/login');
             return;
         }
-        //
-        //console.log(body)
-        //if (!url) return;
+        
         setLoading(true);
         async function fetchData() {
         try {
@@ -32,28 +32,24 @@ function Profile() {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`
-            }
-            });
+            }});
             const data = await response.json();
             if(data.status=== 200){
-                //console.log(data);
                 setData(data);
             }
-            
-        } catch (err) {
+        }catch(err){
             console.log("error : " + err);
             setError(true);
-        } finally {
+        }finally{
             setLoading(false);
         }
         }
         fetchData();
     }, [token]);
 
-    if(error) return <p>error</p>;
+    if(isLoading) return <Loader />;
 
-    if(isLoading) return <p>Loading</p>;
-
+    if(error) return <Error />;
 
     return (
 
