@@ -31,6 +31,7 @@ function Nav() {
         
         //setLoading(true);
         async function fetchData() {
+            if(!token) return;
             try {
                 const response = await fetch("http://localhost:3001/api/v1/user/profile", {
                 method: "POST",
@@ -64,7 +65,7 @@ function Nav() {
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
                 <div className="main-nav_sign-out">
-                    <p>{ userCircle } {firstName}</p>
+                    <Link to="/profile">{ userCircle } {firstName}</Link>
                     <button className="main-nav_sign-out_button" onClick={ handleClick }>
                         { signOutIcon } Sign Out
                     </button>

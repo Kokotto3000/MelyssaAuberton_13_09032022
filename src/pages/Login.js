@@ -18,11 +18,11 @@ function Login() {
 
     const [email, setEmail]= useState(localEmail);
     const [password, setPassword]= useState("");
-    const [remember, setRemember]= useState(localRemember);
+    const [remember, setRemember]= useState(false);
     //const [data, setData] = useState({});
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [isSubmit, setIsSubmit]= useState(false);
+    const [isSubmitted, setIsSubmitted]= useState(false);
 
     const { 
         register, 
@@ -35,7 +35,7 @@ function Login() {
         setEmail(input.email);
         setPassword(input.password);
         setRemember(input.remember);
-        setIsSubmit(true);
+        setIsSubmitted(true);
     };
 
     useEffect(() => {
@@ -46,38 +46,41 @@ function Login() {
         }
 
         setLoading(true);
+
         async function fetchData() {
-        try {
-            const response = await fetch("http://localhost:3001/api/v1/user/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "email": email,
-                "password": password
-            })
-            });
-            const data = await response.json();
-            if(data.status=== 200){
-                console.log(data);
-                if(remember === "true"){
-                    localStorage.setItem("email", email);
-                    localStorage.setItem("remember", remember);
-                }else localStorage.clear();
-                sessionStorage.setItem("jwt", data.body.token);
-                navigate("/profile");
+
+            try {
+                const response = await fetch("http://localhost:3001/api/v1/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "email": email,
+                    "password": password
+                })
+                });
+                const data = await response.json();
+                //console.log(remember);
+                if(data.status=== 200){
+                    //console.log(data);
+                    if(remember){
+                        localStorage.setItem("email", email);
+                        localStorage.setItem("remember", remember);
+                    }else localStorage.clear();
+                    sessionStorage.setItem("jwt", data.body.token);
+                    navigate("/profile");
+                }
+                if(data.status=== 400){
+                    throw data.message;
+                }
+                
+            } catch (err) {
+                console.log(err);
+                isSubmitted && setError(true);
+            } finally {
+                setLoading(false);
             }
-            if(data.status=== 400){
-                throw data.message;
-            }
-            
-        } catch (err) {
-            console.log(err);
-            isSubmit && setError(true);
-        } finally {
-            setLoading(false);
-        }
         }
         fetchData();
     }, [email, password, remember]);
@@ -101,23 +104,9 @@ function Login() {
                         <input type="password" name="password" id="password" {...register("password", { required: true })}/>
                     </div>
                     <div className="input-remember">
-                        { localRemember ? 
-                            <>
-                                <input type="checkbox" id="remember-me" name="remember" value="false" {...register("remember")} /> 
-                                <label htmlFor="remember-me">Forget about me</label>
-                            </>
-                        :
-                            <>
-                                <input type="checkbox" id="remember-me" name="remember" value="true" {...register("remember")} /> 
-                                <label htmlFor="remember-me">Remember me</label>
-                            </>
-                        }
-                        
+                        <input type="checkbox" id="remember-me" name="remember" defaultChecked={localRemember} {...register("remember")} /> 
+                        <label htmlFor="remember-me">Remember me</label>
                     </div>
-
-                    {/*PLACEHOLDER DUE TO STATIC SITE
-                    <Link to="/user" className="sign-in-button">Sign In</Link>
-                    SHOULD BE THE BUTTON BELOW*/}
 
                     { error && <div>Les identifiants sont invalides...</div> }
                     
