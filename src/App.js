@@ -12,23 +12,40 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Transactions from './pages/Transactions';
 
+import { Provider } from 'react-redux';
+import store from './store';
+import {TodoStore}  from './pages/Todo';
+//juste hooks
+//import Todo from './pages/Todo';
+
+//subscribe permet de voir les changements dès qu'il y en a un
+//store.subscribe(()=> console.log(store.getState()));
+
+//dispatch permet de faire l'action
+//store.dispatch({type: ADD_TODO_ACTION, payload: {
+//    title: 'Demo'
+//}});
+
 function App() {
 
     return (
-        <BrowserRouter>
-            <Nav />
-            
-            <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route exact path="/login" element={<Login />} />
-                <Route exact path="/profile" element={<Profile />} />
-                <Route exact path="/transactions" element={<Transactions />} />
-                <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-
-            <Footer />
+        <Provider store={store}>
+            <BrowserRouter>
+                <Nav />
                 
-        </BrowserRouter>
+                <Routes>
+                    <Route exact path="/" element={<Home />} />
+                    <Route exact path="/login" element={<Login />} />
+                    <Route exact path="/profile" element={<Profile />} />
+                    <Route exact path="/transactions" element={<Transactions />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="/todo" element={<TodoStore />} />
+                </Routes>
+
+                <Footer />
+                    
+            </BrowserRouter>
+        </Provider>
     );
 }
 
