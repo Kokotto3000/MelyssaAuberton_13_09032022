@@ -5,6 +5,7 @@ import TransactionsItem from '../components/TransactionsItem';
 import "../styles/Transactions.scss";
 
 function Transactions(){
+    document.title= "Transactions | ARGENT BANK";
 
     const location= useLocation();
     console.log(location.state);

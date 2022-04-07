@@ -1,6 +1,7 @@
 import { createStore, combineReducers } from 'redux';
-import { FilterReducer } from './FilterReducer';
-import TodosReducer from './TodosReducer';
+//import { FilterReducer } from './FilterReducer';
+import UserReducer from './UserReducer';
+//import TranscationsReducer from './TransactionsReducer';
 
 //const store= createStore(TodoReducer);
 //avec devtools
@@ -12,8 +13,11 @@ import TodosReducer from './TodosReducer';
 //avec plusieurs
 export default createStore(
     combineReducers({
-        todos: TodosReducer,
-        filter: FilterReducer
+        user: UserReducer,
+        //transactions: TransactionsReducer
     }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
+//définir les reducers dont on va avoir besoin
+//

@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
+    //ajouter profil de ?
+    document.title= "Profile | ARGENT BANK";
 
     const navigate= useNavigate();
 

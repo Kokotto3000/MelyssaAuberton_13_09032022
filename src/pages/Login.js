@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //npimport Error from './Error';
-import Loader from './Loader';
+import Loader from '../components/Loader';
 
 function Login() {
+    document.title= "Login | ARGENT BANK";
 
     const token= sessionStorage.getItem("jwt");
 

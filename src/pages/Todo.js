@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import {TodoFilterStore} from "../components/TodoFilter";
-import { toggleTodoAction, deleteTodoAction } from "../store/todosActions";
-import { UPDATE_TODO_ACTION, DELETE_TODO_ACTION } from "../store/TodosReducer";
-import { filterTodosSelector, todosSelectors } from "../store/todosSelectors";
+import { toggleTodoAction, deleteTodoAction } from "../store/UserActions";
+import { UPDATE_TODO_ACTION, DELETE_TODO_ACTION } from "../store/UserReducer";
+import { filterTodosSelector, todosSelectors } from "../store/UserSelectors";
 
 function TodoItem({todo, onToggle, onDelete}){
 
