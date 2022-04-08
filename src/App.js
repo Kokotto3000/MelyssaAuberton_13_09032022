@@ -14,7 +14,7 @@ import Transactions from './pages/Transactions';
 
 import { Provider } from 'react-redux';
 import store from './store';
-import {TodoStore}  from './pages/Todo';
+import User  from './pages/User';
 //juste hooks
 //import Todo from './pages/Todo';
 
@@ -38,8 +38,9 @@ function App() {
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/profile" element={<Profile />} />
                     <Route exact path="/transactions" element={<Transactions />} />
+                    <Route path="/user" element={<User />} />
                     <Route path="*" element={<Navigate to="/" />} />
-                    <Route path="/todo" element={<TodoStore />} />
+                    
                 </Routes>
 
                 <Footer />

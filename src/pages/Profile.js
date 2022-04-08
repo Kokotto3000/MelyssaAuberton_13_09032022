@@ -1,12 +1,13 @@
 import ProfileHeader from "../components/ProfileHeader";
 import Account from "../components/Account";
-import Loader from "./Loader";
-import Error from "./Error";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 import accounts from '../datas/accounts';
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFetchUser } from "../services/useFetchUser";
 
 function Profile() {
     //ajouter profil de ?
@@ -28,6 +29,7 @@ function Profile() {
         }
         
         setLoading(true);
+        
         async function fetchData() {
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/profile", {

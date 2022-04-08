@@ -1,23 +1,15 @@
-import { createStore, combineReducers } from 'redux';
-//import { FilterReducer } from './FilterReducer';
-import UserReducer from './UserReducer';
-//import TranscationsReducer from './TransactionsReducer';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import userReducer from './userReducer';
+import { composeWithDevTools } from '@redux-devtools/extension';
+import thunk from 'redux-thunk';
+//import transactionsReducer from './transactionsReducer';
 
-//const store= createStore(TodoReducer);
-//avec devtools
-//avec un reducer
-//const store = createStore(
-//    TodoReducer, /* preloadedState, */
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-//);
-//avec plusieurs
 export default createStore(
     combineReducers({
-        user: UserReducer,
-        //transactions: TransactionsReducer
+        user: userReducer,
+        //transactions: transactionsReducer
     }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(
+        applyMiddleware(thunk)
+    )
 );
-
-//définir les reducers dont on va avoir besoin
-//
