@@ -1,7 +1,11 @@
 //pour la mémoisation
 import { createSelector } from 'reselect';
 
-export const userSelectors= ({user})=> user;
+export const userSelectors= ({user})=> {
+    console.log(user)
+    return user;
+}
+export const userStatusSelector= ({user})=> user.status;
 
 /*export const loginUserSelectors= ({user})=> {
     user.email= "kokotto@gmail.com";

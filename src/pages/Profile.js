@@ -9,6 +9,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchUser } from "../services/useFetchUser";
 
+//appel grâce à useEffect ou bouton ?...
+
 function Profile() {
     //ajouter profil de ?
     document.title= "Profile | ARGENT BANK";

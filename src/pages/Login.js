@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 //npimport Error from './Error';
 import Loader from '../components/Loader';
 
+//dans login mon reducer sera appelé avec le bouton
+
 function Login() {
     document.title= "Login | ARGENT BANK";
 
