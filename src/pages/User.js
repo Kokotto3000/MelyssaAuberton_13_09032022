@@ -5,45 +5,37 @@ import { toggleUserAction, loginUserAction, logoutUserAction } from '../store/us
 import { TOGGLE_USER_ACTION } from '../store/userReducer';
 import { loginUserSelectors, userSelectors } from '../store/userSelectors';
 import { useCallback, useEffect } from 'react';
-import LoginUser from '../components/LoginUser';
+//import LoginUser from '../components/LoginUser';
 //import store from '../store';
+import UserComponent from '../features/user/UserComponent';
+import { loginUser } from '../features/user/userSlice';
+import Login from '../components/Login';
+import Loader from '../components/Loader';
 
 
 export default function User(){
-    //console.log(user);
-    const user= useSelector(userSelectors);
+
+    
+    const {token} = useSelector(state=> state.user.entities.body || "");
     //const dispatch= useDispatch();
-    //const loginUser = useCallback((user)=> {
-     //   dispatch(loginUserAction(user));
-    //}, []);
+
+    console.log(token)
+
     
 
-    //ou import store ? 
-
     /*useEffect(()=> {
-        //console.log("useEffect");
-        fetchOrUpdateUserAction(user.status);
+        const data= {
+            email: "melyssa.auberton@gmail.com",
+            password: "Kokotto3000"
+        }
 
-    }, [])*/
+        dispatch(loginUser(data))
+    }, [dispatch])*/
 
-    return(
-        <>
-            <h1>USER</h1>
-            <div>{user.token}</div>
-            <LoginUser />
-            {/*<div onClick={()=> onToggleToken(user)}>{user.isLogin ? "true" : "false"}</div>*/}
-        </>
-        
-    )
-};
-
-
-//avec connect
-/*export const UserStore= connect(
-    state=> ({
-        user: userSelectors(state)
-    }),
-    dispatch=> ({
-        onToggleToken: user => dispatch(toggleUserAction(user))
-    })
-)(User);*/
+    return (
+        <main className="bg-dark">
+            {token}
+            <Login />
+        </main>
+    );
+}

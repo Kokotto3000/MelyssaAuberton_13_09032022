@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/ProfileHeader.scss';
 import { useForm } from "react-hook-form";
+import Loader from './Loader';
 
 function ProfileHeader({firstName, lastName}) {
 
@@ -64,7 +65,7 @@ function ProfileHeader({firstName, lastName}) {
 
     if(error) return <p>error</p>;
 
-    if(isLoading) return <p>Loading</p>;
+    if(isLoading) return <Loader />;
 
     if(!isCollapse){
 

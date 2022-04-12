@@ -8,16 +8,21 @@ import accounts from '../datas/accounts';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFetchUser } from "../services/useFetchUser";
+import { useSelector } from "react-redux";
 
-//appel grâce à useEffect ou bouton ?...
+//appel
 
 function Profile() {
     //ajouter profil de ?
     document.title= "Profile | ARGENT BANK";
 
+    const user= useSelector(state=> state.user);
+
     const navigate= useNavigate();
 
-    const token= sessionStorage.getItem("jwt");
+    //const token= sessionStorage.getItem("jwt");
+    const token= user.entities.body.token;
+    //console.log(token);
 
     const [data, setData] = useState({});
     const [isLoading, setLoading] = useState(true);
@@ -25,7 +30,7 @@ function Profile() {
 
     useEffect(() => {
 
-        if(!token){
+        if(!user.isLogin){
             navigate('/login');
             return;
         }

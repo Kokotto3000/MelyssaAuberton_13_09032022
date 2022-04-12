@@ -6,20 +6,25 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //npimport Error from './Error';
 import Loader from '../components/Loader';
+import userReducer from '../store/userReducer';
+import { useSelector } from 'react-redux';
+import LoginForm from '../components/LoginForm';
 
 //dans login mon reducer sera appelé avec le bouton
 
 function Login() {
     document.title= "Login | ARGENT BANK";
 
+    //const user= useSelector(state=> state.user);
+
     const token= sessionStorage.getItem("jwt");
 
     const localEmail= localStorage.getItem("email") || undefined;
     const localRemember= localStorage.getItem("remember") === "true" ? true : false;
 
-    const navigate= useNavigate();
+    //const navigate= useNavigate();
 
-    const [email, setEmail]= useState(localEmail);
+    /*const [email, setEmail]= useState(localEmail);
     const [password, setPassword]= useState("");
     const [remember, setRemember]= useState(false);
     //const [data, setData] = useState({});
@@ -39,9 +44,9 @@ function Login() {
         setPassword(input.password);
         setRemember(input.remember);
         setIsSubmitted(true);
-    };
+    };*/
 
-    useEffect(() => {
+    /*useEffect(() => {
 
         if(token){
             navigate('/profile');
@@ -86,9 +91,9 @@ function Login() {
             }
         }
         fetchData();
-    }, [email, password, remember]);
+    }, [email, password, remember]);*/
 
-    if(isLoading) return <Loader />;
+    //if(isLoading) return <Loader />;
 
     //if(error) return <Error />;
     
@@ -97,7 +102,8 @@ function Login() {
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <LoginForm />
+                {/*<form onSubmit={handleSubmit(onSubmit)}>
                     <div className="input-wrapper">
                         <label htmlFor="email">Email</label>
                         <input type="email" name="email" id="email" value={localEmail} {...register("email", { required: true })}/>
@@ -113,8 +119,13 @@ function Login() {
 
                     { error && <div>Les identifiants sont invalides...</div> }
                     
-                    <button type="submit" className="sign-in-button">Sign In</button>
-                </form>
+ 
+                    <button type="submit" className="sign-in-button">Sign In</button> 
+                    { user.loading && <Loader /> }
+    </form>*/}
+                
+                
+
             </section>
         </main>
         

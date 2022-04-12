@@ -7,12 +7,20 @@ import { faUserCircle, faArrowRightFromBracket } from '@fortawesome/free-solid-s
 import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../features/user/userSlice';
 
 
 const userCircle= <FontAwesomeIcon icon={faUserCircle} />;
 const signOutIcon= <FontAwesomeIcon icon={faArrowRightFromBracket} />;
 
 function Nav() {
+
+    const dispatch= useDispatch();
+
+    function handleLogout(){
+        dispatch(logoutUser());
+    };
 
     const navigate= useNavigate();
 

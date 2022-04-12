@@ -3,6 +3,7 @@ import TransactionsHeader from '../components/TransactionsHeader';
 import transactions from '../datas/transactions';
 import TransactionsItem from '../components/TransactionsItem';
 import "../styles/Transactions.scss";
+//import Login from '../components/Login';
 
 //useEffect
 

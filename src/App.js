@@ -11,9 +11,6 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Transactions from './pages/Transactions';
-
-import { Provider } from 'react-redux';
-import store from './store';
 import User  from './pages/User';
 //juste hooks
 //import Todo from './pages/Todo';
@@ -29,7 +26,6 @@ import User  from './pages/User';
 function App() {
 
     return (
-        <Provider store={store}>
             <BrowserRouter>
                 <Nav />
                 
@@ -46,7 +42,6 @@ function App() {
                 <Footer />
                     
             </BrowserRouter>
-        </Provider>
     );
 }
 
