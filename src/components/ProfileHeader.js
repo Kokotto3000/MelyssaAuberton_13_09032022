@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import '../styles/ProfileHeader.scss';
-import { useForm } from "react-hook-form";
-import Loader from './Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../features/user/userSlice';
+import { updateUser } from '../features/user/userSlice';
+import Loader from './Loader';
+
+//ou récupérer response ou useeffect sur response quand update user...
 
 function ProfileHeader() {
 
@@ -13,10 +14,16 @@ function ProfileHeader() {
 
     const dispatch= useDispatch();
 
-    const [firstName, setFirstName]= useState("");
-    const [lastName, setLastName]= useState("");
+    const firstNameInput= useRef("");
+    const lastNameInput=useRef("");
 
     const [isCollapse, setCollapse]= useState(true);
+
+    function handleSubmit(e){
+        e.preventDefault();
+        dispatch(updateUser({ "token": user.entities.body.token, "firstName": firstNameInput.current.value, "lastName": lastNameInput.current.value }));
+        setCollapse(true);
+    }
 
     /*const [firstNameInput, setFirstName]= useState(firstName);
     const [lastNameInput, setLastName]= useState(lastName);*/
@@ -77,16 +84,18 @@ function ProfileHeader() {
     //if(error) return <p>error</p>;
 
     //if(isLoading) return <Loader />;
+    
 
-    /*if(!isCollapse){
+    if(!isCollapse){
 
         return (
+            
             <header className="header">
                 <h1>Welcome back</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit}>
                     <div>
-                        <input type="text" name="firstName" placeholder={firstNameInput} id="firstName" {...register("firstName")}></input>
-                        <input type="text" name="lastName" placeholder={lastNameInput} id="lastName" {...register("lastName")}></input>
+                        <input type="text" name="firstName" placeholder={""} id="firstName" ref={firstNameInput} ></input>
+                        <input type="text" name="lastName" placeholder={""} id="lastName" ref={lastNameInput} ></input>
                     </div>
 
                     <div>
@@ -94,18 +103,21 @@ function ProfileHeader() {
                         <button onClick={handleClick}>Cancel</button>
                     </div>
                     
-                    
                 </form>
             </header>
         )
-    }*/
+    }
 
     return (
 
         <div className="header">
             <h1>Welcome back</h1>
-            <h2>{user.data.body.firstName} {user.data.body.lastName}</h2>
-            <button className="edit-button" onClick={handleClick}>Edit Name</button>
+            
+            { user.data.body && 
+                <h2>{user.data.body.firstName} {user.data.body.lastName}</h2>
+            }
+            
+            <button className="edit-button" disabled={user.loading} onClick={handleClick}>Edit Name</button>
         </div>
     )
 }

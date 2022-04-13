@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, logoutUser } from '../features/user/userSlice';
+import { logoutUser } from '../features/user/userSlice';
 
 
 const userCircle= <FontAwesomeIcon icon={faUserCircle} />;
@@ -36,7 +35,7 @@ function Nav() {
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
 
-            {user.isLogin ? 
+            {user.isLogin && user.data.body ? 
                 <div className="main-nav_sign-out">
                     <Link to="/profile">{ userCircle } {user.data.body.firstName}</Link>
                     <button className="main-nav_sign-out_button" onClick={ handleLogout }>

@@ -27,7 +27,6 @@ export const loginUser = createAsyncThunk(
 export const getUser = createAsyncThunk(
     'user/getUser',
     async ({token})=>{
-        console.log(token);
         return await fetch("http://localhost:3001/api/v1/user/profile", {
             method: "POST",
             headers: {
@@ -38,11 +37,30 @@ export const getUser = createAsyncThunk(
     }
 );
 
+export const updateUser = createAsyncThunk(
+    'user/updateUser',
+    async({token, firstName, lastName})=> {
+        return await fetch("http://localhost:3001/api/v1/user/profile", {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+                body: JSON.stringify({
+                    "firstName": firstName,
+                    "lastName": lastName
+            })
+        })
+        .then(response=> response.json())
+    }
+)
+
 const initialState = {
     entities: [],
     data: [],
     loading: false,
-    isLogin: false
+    isLogin: false,
+    status: 'idle'
 };
   
 
@@ -53,6 +71,8 @@ export const userSlice= createSlice({
         logoutUser: (state, action)=> {
             state.isLogin= false;
             state.entities= [];
+            state.data= [];
+            state.status= 'idle';
         }
     },
     extraReducers: (builder)=>{
@@ -92,6 +112,24 @@ export const userSlice= createSlice({
             state.loading =  true;
         })
         .addCase(getUser.rejected, (state, action) => {
+            state.status = 'failed';
+            state.loading= false;
+        })
+        .addCase(updateUser.fulfilled, (state, action)=> {
+            state.data= action.payload;
+            if(state.entities.status === 200){
+                state.status= 'success';
+            }else if(state.entities.status === 400){
+                state.status= 'failed';
+                console.log(state.entities.message);
+            }
+            state.loading= false;
+        })
+        .addCase(updateUser.pending, (state) => {
+            state.status = 'updating';
+            state.loading =  true;
+        })
+        .addCase(updateUser.rejected, (state, action) => {
             state.status = 'failed';
             state.loading= false;
         })

@@ -1,11 +1,11 @@
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, loginUser, logoutUser } from '../features/user/userSlice';
-import { useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { getUser, loginUser } from '../features/user/userSlice';
+//import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 function LoginForm() {
-    const navigate= useNavigate();
+    //const navigate= useNavigate();
     const user= useSelector(state=> state.user);
     const dispatch= useDispatch();
     const email= useRef(null);
@@ -21,15 +21,18 @@ function LoginForm() {
         e.preventDefault();
         await dispatch(loginUser({"email" : email.current.value, "password": password.current.value}))
         .then(response=> {
-            if(user.status === "success") getUserName(response.payload.body);
-            email.focus();
+            if(response.payload.status === 200) {
+                getUserName(response.payload.body);   
+            }
+            email.current.focus();
+            return;
         })
         .catch(error=> console.log("login : " + error))
     }
     
     async function getUserName(token){
         await dispatch(getUser(token))
-        .then(()=> navigate('/profile'))
+        .then(response=> console.log(response))
         .catch(error=> console.log(error))
     }
 
@@ -48,11 +51,10 @@ function LoginForm() {
                 <label htmlFor="remember-me">Remember me</label>
             </div>
 
-            {/* error && <div>Les identifiants sont invalides...</div> */}
+            { user.status === "failed" && <div>Les identifiants sont invalides...</div> }
             
 
             <button type="submit" className="sign-in-button">Sign In</button> 
-            { user.loading && <Loader /> }
         </form>
     );
 }
