@@ -1,13 +1,4 @@
 import '../styles/SignIn.scss';
-//import { useFetch } from "../utils/useFetch";
-//utilisation de useForm pour éviter les render inutiles dès qu'on change qqch dans les champs du formulaire
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-//npimport Error from './Error';
-import Loader from '../components/Loader';
-import userReducer from '../store/userReducer';
-import { useSelector } from 'react-redux';
 import LoginForm from '../components/LoginForm';
 
 //dans login mon reducer sera appelé avec le bouton
@@ -96,34 +87,13 @@ function Login() {
     
     return (
         <main className="main bg-dark">
+
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
                 <LoginForm />
-                {/*<form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="input-wrapper">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name="email" id="email" value={localEmail} {...register("email", { required: true })}/>
-                    </div>
-                    <div className="input-wrapper">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name="password" id="password" {...register("password", { required: true })}/>
-                    </div>
-                    <div className="input-remember">
-                        <input type="checkbox" id="remember-me" name="remember" defaultChecked={localRemember} {...register("remember")} /> 
-                        <label htmlFor="remember-me">Remember me</label>
-                    </div>
-
-                    { error && <div>Les identifiants sont invalides...</div> }
-                    
- 
-                    <button type="submit" className="sign-in-button">Sign In</button> 
-                    { user.loading && <Loader /> }
-    </form>*/}
-                
-                
-
             </section>
+
         </main>
         
     )

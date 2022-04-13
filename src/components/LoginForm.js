@@ -1,6 +1,6 @@
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, logoutUser } from '../features/user/userSlice';
+import { getUser, loginUser, logoutUser } from '../features/user/userSlice';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef } from "react";
 
@@ -12,18 +12,26 @@ function LoginForm() {
     const password= useRef(null);
     const remember= useRef(false);
 
-    const token= sessionStorage.getItem("jwt");
+    //const token= sessionStorage.getItem("jwt");
 
     const localEmail= localStorage.getItem("email") || undefined;
     const localRemember= localStorage.getItem("remember") === "true" ? true : false;
 
-    function handleSubmit(e){
-
+    async function handleSubmit(e){
         e.preventDefault();
-        dispatch(loginUser({"email" : email.current.value, "password": password.current.value}));
+        await dispatch(loginUser({"email" : email.current.value, "password": password.current.value}))
+        .then(response=> {
+            if(user.status === "success") getUserName(response.payload.body);
+            email.focus();
+        })
+        .catch(error=> console.log("login : " + error))
     }
-
     
+    async function getUserName(token){
+        await dispatch(getUser(token))
+        .then(()=> navigate('/profile'))
+        .catch(error=> console.log(error))
+    }
 
     return (
         <form onSubmit={handleSubmit}>

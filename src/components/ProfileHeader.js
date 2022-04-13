@@ -9,31 +9,20 @@ function ProfileHeader() {
 
     const user= useSelector(state=> state.user);
 
+    console.log(user);
+
     const dispatch= useDispatch();
 
     const [firstName, setFirstName]= useState("");
     const [lastName, setLastName]= useState("");
 
-    useEffect(()=> {
-        if(user.isLogin){
-            dispatch(getUser(user.entities.body))
-            .then(response=> response.payload.body)
-            .then(data=> {
-                setFirstName(data.firstName);
-                setLastName(data.lastName);
-            })
-        }
-        return;    
-    },[dispatch]);
-
-    //const [isCollapse, setCollapse]= useState(true);
+    const [isCollapse, setCollapse]= useState(true);
 
     /*const [firstNameInput, setFirstName]= useState(firstName);
     const [lastNameInput, setLastName]= useState(lastName);*/
 
     function handleClick(){
-        console.log('collapse')
-        //setCollapse(isCollapse? false : true);
+        setCollapse(isCollapse? false : true);
     }
 
     /*const { 
@@ -115,7 +104,7 @@ function ProfileHeader() {
 
         <div className="header">
             <h1>Welcome back</h1>
-            <h2>{firstName} {lastName}</h2>
+            <h2>{user.data.body.firstName} {user.data.body.lastName}</h2>
             <button className="edit-button" onClick={handleClick}>Edit Name</button>
         </div>
     )
