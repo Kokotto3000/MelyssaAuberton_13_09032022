@@ -12,18 +12,12 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Transactions from './pages/Transactions';
 import User  from './pages/User';
-//juste hooks
-//import Todo from './pages/Todo';
-
-//subscribe permet de voir les changements dès qu'il y en a un
-//store.subscribe(()=> console.log(store.getState()));
-
-//dispatch permet de faire l'action
-//store.dispatch({type: ADD_TODO_ACTION, payload: {
-//    title: 'Demo'
-//}});
+import { useSelector } from 'react-redux';
 
 function App() {
+
+    const user= useSelector(state=> state.user);
+    console.log(user.isLogin);
 
     return (
             <BrowserRouter>
@@ -31,8 +25,8 @@ function App() {
                 
                 <Routes>
                     <Route exact path="/" element={<Home />} />
-                    <Route exact path="/login" element={<Login />} />
-                    <Route exact path="/profile" element={<Profile />} />
+                    <Route exact path="/login" element={!user.isLogin ? <Login /> : <Navigate to="/profile" />} />
+                    <Route exact path="/profile" element={user.isLogin ? <Profile /> : <Navigate to="/login" />} />
                     <Route exact path="/transactions" element={<Transactions />} />
                     <Route path="/user" element={<User />} />
                     <Route path="*" element={<Navigate to="/" />} />

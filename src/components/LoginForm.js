@@ -17,16 +17,10 @@ function LoginForm() {
     const localEmail= localStorage.getItem("email") || undefined;
     const localRemember= localStorage.getItem("remember") === "true" ? true : false;
 
-    async function handleSubmit(e){
+    function handleSubmit(e){
 
         e.preventDefault();
-        
-        await dispatch(loginUser({"email" : email.current.value, "password": password.current.value}))
-          
-        console.log(user);
-        if(user.isLogin) navigate('/profile');
-        //email.current.focus();
-        return;
+        dispatch(loginUser({"email" : email.current.value, "password": password.current.value}));
     }
 
     

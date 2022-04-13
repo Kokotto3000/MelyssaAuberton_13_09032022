@@ -29,11 +29,6 @@ function Profile() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-
-        if(!user.isLogin){
-            navigate('/login');
-            return;
-        }
         
         setLoading(true);
         

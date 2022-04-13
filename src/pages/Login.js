@@ -17,10 +17,7 @@ function Login() {
 
     //const user= useSelector(state=> state.user);
 
-    const token= sessionStorage.getItem("jwt");
-
-    const localEmail= localStorage.getItem("email") || undefined;
-    const localRemember= localStorage.getItem("remember") === "true" ? true : false;
+    
 
     //const navigate= useNavigate();
 
