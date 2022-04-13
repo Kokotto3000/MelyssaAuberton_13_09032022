@@ -16,19 +16,19 @@ function Profile() {
     //ajouter profil de ?
     document.title= "Profile | ARGENT BANK";
 
-    const user= useSelector(state=> state.user);
+    
 
-    const navigate= useNavigate();
+    //const navigate= useNavigate();
 
     //const token= sessionStorage.getItem("jwt");
-    const token= user.entities.body.token;
+    
     //console.log(token);
 
-    const [data, setData] = useState({});
+    /*const [data, setData] = useState({});
     const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(false);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         
         setLoading(true);
         
@@ -51,16 +51,16 @@ function Profile() {
         }
         }
         fetchData();
-    }, [token]);
+    }, [token]);*/
 
-    if(isLoading) return <Loader />;
+    //if(isLoading) return <Loader />;
 
-    if(error) return <Error />;
+    //if(error) return <Error />;
 
     return (
 
         <main className="main bg-dark">
-            <ProfileHeader firstName={data.body.firstName} lastName={data.body.lastName} />
+            <ProfileHeader />
 
             <h2 className="sr-only">Accounts</h2>
 

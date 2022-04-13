@@ -7,7 +7,7 @@ import { faUserCircle, faArrowRightFromBracket } from '@fortawesome/free-solid-s
 import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../features/user/userSlice';
 
 
@@ -15,14 +15,17 @@ const userCircle= <FontAwesomeIcon icon={faUserCircle} />;
 const signOutIcon= <FontAwesomeIcon icon={faArrowRightFromBracket} />;
 
 function Nav() {
+    const user= useSelector(state=> state.user);
 
     const dispatch= useDispatch();
+    const navigate= useNavigate();
 
     function handleLogout(){
         dispatch(logoutUser());
+        navigate('/');
     };
 
-    const navigate= useNavigate();
+    
 
     const token= sessionStorage.getItem("jwt");
 
@@ -30,10 +33,10 @@ function Nav() {
 
     //console.log(token);
 
-    function handleClick(){
+    /*function handleClick(){
         sessionStorage.clear();
         navigate('/');
-    }
+    }*/
 
     //useEffect(() => {
         
@@ -61,7 +64,7 @@ function Nav() {
 
 
 
-    if(token){
+    if(user.isLogin){
         return (
             <nav className="main-nav">
                 <Link to="/" className="main-nav-logo">
@@ -74,7 +77,7 @@ function Nav() {
                 </Link>
                 <div className="main-nav_sign-out">
                     <Link to="/profile">{ userCircle } {firstName}</Link>
-                    <button className="main-nav_sign-out_button" onClick={ handleClick }>
+                    <button className="main-nav_sign-out_button" onClick={ handleLogout }>
                         { signOutIcon } Sign Out
                     </button>
                 </div>

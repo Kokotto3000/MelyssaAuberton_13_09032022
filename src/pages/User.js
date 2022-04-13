@@ -11,15 +11,24 @@ import UserComponent from '../features/user/UserComponent';
 import { loginUser } from '../features/user/userSlice';
 import Login from '../components/Login';
 import Loader from '../components/Loader';
+import { getUser } from '../features/user/userSlice';
 
 
 export default function User(){
 
     
-    const {token} = useSelector(state=> state.user.entities.body || "");
+    const user = useSelector(state=> state.user);
     //const dispatch= useDispatch();
 
-    console.log(token)
+    const dispatch= useDispatch();
+
+    useEffect(async()=> {
+        if(user.isLogin){
+            await dispatch(getUser(user.entities.body))
+            console.log(user)
+        }
+        
+    }, [dispatch, user.isLogin]);
 
     
 
@@ -34,7 +43,6 @@ export default function User(){
 
     return (
         <main className="bg-dark">
-            {token}
             <Login />
         </main>
     );

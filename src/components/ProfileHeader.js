@@ -2,38 +2,60 @@ import { useState, useEffect } from 'react';
 import '../styles/ProfileHeader.scss';
 import { useForm } from "react-hook-form";
 import Loader from './Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../features/user/userSlice';
 
-function ProfileHeader({firstName, lastName}) {
+function ProfileHeader() {
 
-    const [isCollapse, setCollapse]= useState(true);
+    const user= useSelector(state=> state.user);
 
-    const [firstNameInput, setFirstName]= useState(firstName);
-    const [lastNameInput, setLastName]= useState(lastName);
+    const dispatch= useDispatch();
+
+    const [firstName, setFirstName]= useState("");
+    const [lastName, setLastName]= useState("");
+
+    useEffect(()=> {
+        if(user.isLogin){
+            dispatch(getUser(user.entities.body))
+            .then(response=> response.payload.body)
+            .then(data=> {
+                setFirstName(data.firstName);
+                setLastName(data.lastName);
+            })
+        }
+        return;    
+    },[dispatch]);
+
+    //const [isCollapse, setCollapse]= useState(true);
+
+    /*const [firstNameInput, setFirstName]= useState(firstName);
+    const [lastNameInput, setLastName]= useState(lastName);*/
 
     function handleClick(){
-        setCollapse(isCollapse? false : true);
+        console.log('collapse')
+        //setCollapse(isCollapse? false : true);
     }
 
-    const { 
+    /*const { 
         register, 
         handleSubmit,
         formState: {errors} 
-    } = useForm();
+    } = useForm();*/
 
-    const onSubmit = input => {
+    /*const onSubmit = input => {
         console.log(input);
         if(input.firstName) setFirstName(input.firstName);
         if(input.lastName) setLastName(input.lastName);
         setCollapse(true);
-    };
+    };*/
     
-    const token= sessionStorage.getItem("jwt");
+    //const token= sessionStorage.getItem("jwt");
 
-    const [data, setData] = useState({});
+    /*const [data, setData] = useState({});
     const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(false);*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         //console.log(body)
         //if (!url) return;
         setLoading(true);
@@ -61,13 +83,13 @@ function ProfileHeader({firstName, lastName}) {
         }
         }
         fetchData();
-    }, [firstNameInput, lastNameInput, token]);
+    }, [firstNameInput, lastNameInput, token]);*/
 
-    if(error) return <p>error</p>;
+    //if(error) return <p>error</p>;
 
-    if(isLoading) return <Loader />;
+    //if(isLoading) return <Loader />;
 
-    if(!isCollapse){
+    /*if(!isCollapse){
 
         return (
             <header className="header">
@@ -87,13 +109,13 @@ function ProfileHeader({firstName, lastName}) {
                 </form>
             </header>
         )
-    }
+    }*/
 
     return (
 
         <div className="header">
             <h1>Welcome back</h1>
-            <h2>{firstNameInput} {lastNameInput}</h2>
+            <h2>{firstName} {lastName}</h2>
             <button className="edit-button" onClick={handleClick}>Edit Name</button>
         </div>
     )
