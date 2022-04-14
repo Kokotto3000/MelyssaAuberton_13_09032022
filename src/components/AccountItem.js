@@ -1,21 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import '../styles/Account.scss';
 
-function Account(props) {
+function Account({ type, accountId, amount, description }) {
 
     const navigate= useNavigate();
 
+    const title= `Argent Bank ${ type } (${ accountId })`;
+
     function handleClick(){
-        console.log(props)
-        navigate("/transactions", { state: { title: props.title, amount: props.amount, description: props.description } });
+        navigate("/transactions", { state: { title: title, amount: amount, description: description } });
     }
 
     return (
         <section className="account">
             <div className="account-content-wrapper">
-                <h3 className="account-title">{ props.title }</h3>
-                <p className="account-amount">{ props.amount }</p>
-                <p className="account-amount-description">{ props.description }</p>
+                <h3 className="account-title">{ title }</h3>
+                <p className="account-amount">${ amount.toLocaleString('en') }</p>
+                <p className="account-amount-description">{ description }</p>
             </div>
             <div className="account-content-wrapper cta">
                 <button className="transaction-button" onClick={handleClick}>View transactions</button>

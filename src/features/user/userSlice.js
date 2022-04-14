@@ -59,7 +59,8 @@ const initialState = {
     remember: false,
     token: "",
     firstName: "",
-    lastName: ""
+    lastName: "",
+    id: ""
 };
   
 
@@ -71,6 +72,7 @@ export const userSlice= createSlice({
             state.token= sessionStorage.getItem("jwt");
             state.firstName= sessionStorage.getItem("firstName");
             state.lastName= sessionStorage.getItem("lastName");
+            state.id= sessionStorage.getItem("id");
             state.isLogin= true;
         },
         logoutUser: (state, action)=> {
@@ -81,6 +83,7 @@ export const userSlice= createSlice({
             state.firstName= "";
             state.lastName= "";
             state.token= "";
+            state.id= "";
             sessionStorage.clear();
         },
         toggleRememberUser: (state, action)=> {
@@ -111,7 +114,6 @@ export const userSlice= createSlice({
             state.loading= false;
         })
         .addCase(getUser.fulfilled, (state, action)=> {
-            //console.log(action.payload)
             state.data= action.payload;
             if(state.data.status === 200){
                 state.status= 'success';
@@ -119,6 +121,8 @@ export const userSlice= createSlice({
                 sessionStorage.setItem("firstName", action.payload.body.firstName);
                 state.lastName= action.payload.body.lastName;
                 sessionStorage.setItem("lastName", action.payload.body.lastName);
+                state.id= action.payload.body.id;
+                sessionStorage.setItem("id", action.payload.body.id);
                 if(state.remember) localStorage.setItem("email", action.payload.body.email);
                 else localStorage.clear();
             }else if(state.data.status === 400){

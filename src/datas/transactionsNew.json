@@ -1,0 +1,69 @@
+[
+	
+    {
+        "id": "a11fc220-bc25-11ec-8422-0242ac120002",
+        "userId": "62344672eb03594efc51cf85",
+        "accountId": "x8349",
+        "correspondingUserId": "Golden Sun Bakery",
+        "timestamp": "2022-03-27T22:12:33.430Z",
+        "amount" : -5.00,
+        "type" : "Electronic",
+        "category": "Food",
+        "notes" : ""
+    },
+    {
+        "id": "a11fc220-bc25-11ec-8422-0242ac120003",
+        "userId": "62344672eb03594efc51cf85",
+        "accountId": "x8349",
+        "correspondingUserId": "Golden Sun Bakery",
+        "timestamp": "2022-03-27T22:12:33.430Z",
+        "amount" : -5.00,
+        "type" : "Electronic",
+        "category": "Food",
+        "notes" : ""
+    },
+    {
+        "id": "a11fc220-bc25-11ec-8422-0242ac120004",
+        "userId": "62344672eb03594efc51cf85",
+        "accountId": "x8349",
+        "correspondingUserId": "Golden Sun Bakery",
+        "timestamp": "2022-03-27T22:12:33.430Z",
+        "amount" : -5.00,
+        "type" : "Electronic",
+        "category": "Food",
+        "notes" : ""
+    },
+    {
+        "id": "a11fc220-bc25-11ec-8422-0242ac120005",
+        "userId": "62344672eb03594efc51cf85",
+        "accountId": "x8349",
+        "correspondingUserId": "Golden Sun Bakery",
+        "timestamp": "2022-03-27T22:12:33.430Z",
+        "amount" : -5.00,
+        "type" : "Electronic",
+        "category": "Food",
+        "notes" : ""
+    },
+    {
+        "id": "a11fc220-bc25-11ec-8422-0242ac120006",
+        "userId": "62344672eb03594efc51cf85",
+        "accountId": "x8349",
+        "correspondingUserId": "Golden Sun Bakery",
+        "timestamp": "2022-03-27T22:12:33.430Z",
+        "amount" : -5.00,
+        "type" : "Electronic",
+        "category": "Food",
+        "notes" : ""
+    },
+    {
+        "id": "a11fc220-bc25-11ec-8422-0242ac120007",
+        "userId": "62344672eb03594efc51cf85",
+        "accountId": "x8349",
+        "correspondingUserId": "Golden Sun Bakery",
+        "timestamp": "2022-03-27T22:12:33.430Z",
+        "amount" : -5.00,
+        "type" : "Electronic",
+        "category": "Food",
+        "notes" : ""
+    }
+]
