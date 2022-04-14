@@ -16,10 +16,6 @@ export const loginUser = createAsyncThunk(
             })
         })
         .then(response=> response.json())
-        /*async ({email, password}) => {
-            console.log(email, password)
-            return await userAPI.fetchByCredentials(email, password)
-        }*/
     }
 );
 

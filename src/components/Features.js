@@ -3,7 +3,7 @@ import '../styles/Features.scss';
 import money from '../assets/img/icon-money.png';
 import security from '../assets/img/icon-security.png';*/
 import { items } from '../datas/items';
-import Item from './Item';
+import FeaturesItem from './FeaturesItem';
 
 function Features() {
 
@@ -12,7 +12,7 @@ function Features() {
             <h2 className="sr-only">Features</h2>
 
             {items.map((element, index)=> (
-                <Item key={ index } image={ element.image } alt={ element.alt } title={ element.title } description={ element.description } />
+                <FeaturesItem key={ index } image={ element.image } alt={ element.alt } title={ element.title } description={ element.description } />
             ))}
 
         </section>

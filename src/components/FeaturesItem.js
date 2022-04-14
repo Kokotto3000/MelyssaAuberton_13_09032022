@@ -1,6 +1,6 @@
 import '../styles/Item.scss';
 
-function Item(props) {
+function FeaturesItem(props) {
 
     return(
         <div className="feature-item">
@@ -13,4 +13,4 @@ function Item(props) {
     )
 }
 
-export default Item;
+export default FeaturesItem;

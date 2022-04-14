@@ -3,7 +3,6 @@ import TransactionsHeader from '../components/TransactionsHeader';
 import transactions from '../datas/transactions';
 import TransactionsItem from '../components/TransactionsItem';
 import "../styles/Transactions.scss";
-//import Login from '../components/Login';
 
 //useEffect
 
@@ -12,12 +11,6 @@ function Transactions(){
 
     const location= useLocation();
     console.log(location.state);
-
-    if(location.state === null) {
-        return (
-            <Navigate to="/login" />
-        )
-    };
 
     return(
 
