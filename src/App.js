@@ -12,9 +12,21 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Transactions from './pages/Transactions';
 import Loader from './components/Loader';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLocalDataUser } from './features/user/userSlice';
+import { useEffect } from 'react';
 
 function App() {
+
+    const dispatch= useDispatch();
+
+    useEffect(()=> {
+        const token= sessionStorage.getItem("jwt");
+        if(token) dispatch(getLocalDataUser());
+        return;
+    },[])
+
+    
 
     const user= useSelector(state=> state.user);
     //console.log(user.isLogin);
@@ -29,7 +41,7 @@ function App() {
             
             <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route exact path="/login" element={!user.isLogin ? <Login /> : <Navigate to="/profile" />} />
+                <Route exact path="/login" element={!user.isLogin  ? <Login /> : <Navigate to="/profile" />} />
                 <Route exact path="/profile" element={user.isLogin ? <Profile /> : <Navigate to="/login" />} />
                 <Route exact path="/transactions" element={user.isLogin ? <Transactions /> : <Navigate to="/login" />} />
                 <Route path="*" element={<Navigate to="/" />} />

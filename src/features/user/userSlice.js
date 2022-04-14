@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-//import { useNavigate } from 'react-router-dom';
 //import userAPI from './userAPI';
 
 export const loginUser = createAsyncThunk(
     'user/loginUser',
-    async ({email, password})=>{
-        //console.log(email, password)
+    async ({ email, password })=>{
+        
         return await fetch("http://localhost:3001/api/v1/user/login", {
             method: "POST",
             headers: {
@@ -56,11 +55,15 @@ export const updateUser = createAsyncThunk(
 )
 
 const initialState = {
-    entities: [],
+    tokenData: [],
     data: [],
     loading: false,
     isLogin: false,
-    status: 'idle'
+    status: 'idle',
+    remember: false,
+    token: "",
+    firstName: "",
+    lastName: ""
 };
   
 
@@ -68,24 +71,38 @@ export const userSlice= createSlice({
     name: "user",
     initialState,
     reducers: {
+        getLocalDataUser: (state, action)=> {
+            state.token= sessionStorage.getItem("jwt");
+            state.firstName= sessionStorage.getItem("firstName");
+            state.lastName= sessionStorage.getItem("lastName");
+            state.isLogin= true;
+        },
         logoutUser: (state, action)=> {
             state.isLogin= false;
-            state.entities= [];
+            state.tokenData= [];
             state.data= [];
             state.status= 'idle';
+            state.firstName= "";
+            state.lastName= "";
+            state.token= "";
+            sessionStorage.clear();
+        },
+        toggleRememberUser: (state, action)=> {
+            state.remember= action.payload;
         }
     },
     extraReducers: (builder)=>{
         builder
         .addCase(loginUser.fulfilled, (state, action)=> {
-            state.entities=action.payload;
-            if(state.entities.status === 200){
+            state.tokenData=action.payload;
+            if(state.tokenData.status === 200){
                 state.status= 'success';
                 state.isLogin= true;
-
-            }else if(state.entities.status === 400){
+                state.token= action.payload.body.token;
+                sessionStorage.setItem("jwt", action.payload.body.token);
+            }else if(state.tokenData.status === 400){
                 state.status= 'failed';
-                console.log(state.entities.message);
+                console.log(state.tokenData.message);
             }
             state.loading= false;
         })
@@ -98,12 +115,19 @@ export const userSlice= createSlice({
             state.loading= false;
         })
         .addCase(getUser.fulfilled, (state, action)=> {
+            //console.log(action.payload)
             state.data= action.payload;
-            if(state.entities.status === 200){
+            if(state.data.status === 200){
                 state.status= 'success';
-            }else if(state.entities.status === 400){
+                state.firstName= action.payload.body.firstName;
+                sessionStorage.setItem("firstName", action.payload.body.firstName);
+                state.lastName= action.payload.body.lastName;
+                sessionStorage.setItem("lastName", action.payload.body.lastName);
+                if(state.remember) localStorage.setItem("email", action.payload.body.email);
+                else localStorage.clear();
+            }else if(state.data.status === 400){
                 state.status= 'failed';
-                console.log(state.entities.message);
+                console.log(state.tokenData.message);
             }
             state.loading= false;
         })
@@ -117,11 +141,15 @@ export const userSlice= createSlice({
         })
         .addCase(updateUser.fulfilled, (state, action)=> {
             state.data= action.payload;
-            if(state.entities.status === 200){
+            if(state.data.status === 200){
+                state.firstName= action.payload.body.firstName;
+                sessionStorage.setItem("firstName", action.payload.body.firstName);
+                state.lastName= action.payload.body.lastName;
+                sessionStorage.setItem("lastName", action.payload.body.lastName);
                 state.status= 'success';
-            }else if(state.entities.status === 400){
+            }else if(state.data.status === 400){
                 state.status= 'failed';
-                console.log(state.entities.message);
+                console.log(state.data.message);
             }
             state.loading= false;
         })
@@ -136,9 +164,9 @@ export const userSlice= createSlice({
     }
 });
 
-//export const userToken = (state) => state.user.entities.body.token;
+//export const userToken = (state) => state.user.tokenData.body.token;
 
-export const { logoutUser }= userSlice.actions;
+export const { logoutUser, toggleRememberUser, getLocalDataUser }= userSlice.actions;
 
 export default userSlice.reducer;
 

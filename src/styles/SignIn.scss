@@ -9,6 +9,9 @@
     background-color: #00bc77;
     color: #fff;
     //text-decoration: none;
+    &:disabled {
+      opacity: 0.5;
+    }
   }
   
   .sign-in-content {
