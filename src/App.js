@@ -21,23 +21,21 @@ function App() {
 
     const dispatch= useDispatch();
 
+    const user= useSelector(state=> state.user);
+    const accounts= useSelector(state=> state.accounts);
+
     useEffect(()=> {
-        const token= sessionStorage.getItem("jwt")
-        const id= sessionStorage.getItem("id");
-        if(token && id) {
-            dispatch(getLocalDataUser());
-            dispatch(getUserAccounts({ "token": token, "userId": id}));
+        if(user.isLogin) {
+            dispatch(getUserAccounts({ "token": user.token, "userId": user.id}));
         }
         return;
     },[dispatch]);
-
-    const user= useSelector(state=> state.user);
 
     return (
         <BrowserRouter>
             <Nav />
 
-            { user.loading && <Loader /> }
+            { (user.loading || accounts.loading) && <Loader /> }
             
             <Routes>
                 <Route exact path="/" element={<Home />} />

@@ -5,11 +5,15 @@ import accountsReducer from '../features/accounts/accountsSlice';
 
 //import accounts from '../datas/accountsNew.json';
 
-/*const preloadedState = {
-  accounts: {
-    accounts: accounts
+const preloadedState = {
+  user: {
+    token: sessionStorage?.getItem("jwt"),
+    firstName: sessionStorage?.getItem("firstName"),
+    lastName: sessionStorage?.getItem("lastName"),
+    id: sessionStorage?.getItem("id"),
+    isLogin: sessionStorage.length !== 0
   }
-}*/
+}
 
 export const store = configureStore({
   reducer: {
@@ -17,5 +21,5 @@ export const store = configureStore({
     accounts: accountsReducer,
     //transactions: transactionsReducer
   },
-  //preloadedState
+  preloadedState
 });
