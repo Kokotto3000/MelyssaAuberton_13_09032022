@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+import transactions from '../../datas/transactions.json';
 /*export const getAccountTransactions= createAsyncThunk(
     'accounts/getAccountTransactions',
     async ({token, accountId })=>{
@@ -18,12 +18,50 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
     }
 );*/
 export const getAccountTransactions= createAsyncThunk(
-    'accounts/getAccountTransactions',
+    'transactions/getAccountTransactions',
     ({token, accountId})=> {
         console.log("Authorization: " + token);
-        return transactions.filter(transaction=> transaction.accountId === accountId);
+        const accountTransactions = transactions.filter(transaction=> transaction.accountId === accountId);
+        return accountTransactions.sort((a,b)=> (b.timestamp).localeCompare(a.timestamp));
     }
 );
+
+/*export const updateTransactionCategory = createAsyncThunk(
+    'transactions/updateTransactionCategory',
+    async({token, transactionId, category})=> {
+        return await fetch("http://localhost:3001/api/v1/transaction/category", {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+                body: JSON.stringify({
+                    "id": transactionId,
+                    "category": category
+            })
+        })
+        .then(response=> response.json())
+    }
+);*/
+
+export const updateTransactionCategory= createAsyncThunk(
+    'transactions/updateTransactionCategory',
+    ({token, transactionId, category})=> {
+        console.log("Authorization: " + token);
+        const transaction = transactions.find(transaction=> transaction.id === transactionId);
+        //transaction.category= category;
+        const index= transactions.indexOf(transaction);
+        return {"category": category, "index": index};
+    }
+);
+
+function isRejectedAction(action) {
+    return action.type.endsWith('rejected');
+};
+
+function isPendingAction(action) {
+    return action.type.endsWith('pending');
+};
 
 const initialState= {
     accountTransactions: [],
@@ -43,17 +81,40 @@ export const transactionsSlice= createSlice({
             state.status= "success";
             state.loading= false;
         })
-        .addCase(getAccountTransactions.pending, (state) => {
+        .addCase(updateTransactionCategory.fulfilled, (state, action)=> {
+            console.log(action.payload);
+            //const transaction = transactions.find(transaction=> transaction.id === payload.id);
+            //transaction.category= category;
+            state.accountTransactions[action.payload.index].category= action.payload.category;
+            state.status= "success";
+            state.loading= false;
+        })
+        /*.addCase(getAccountTransactions.pending, (state) => {
             state.status= "updating";
             state.loading= true;
         })
         .addCase(getAccountTransactions.rejected, (state, action) => {
             state.status = 'failed';
             state.loading= false;
-        })
+        })*/
+        .addMatcher(
+            isPendingAction,
+            // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
+            (state, action) => {
+                state.status = 'updating';
+                state.loading= true;
+            }
+        )
+        .addMatcher(
+            isRejectedAction,
+            // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
+            (state, action) => {
+                console.log(action);
+                state.status = 'failed';
+                state.loading= false;
+            }
+        )
     }
 });
-
-//export const {  }= transactionsSlice.actions;
 
 export default transactionsSlice.reducer;

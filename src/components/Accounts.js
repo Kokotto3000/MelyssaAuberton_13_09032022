@@ -9,8 +9,8 @@ function Accounts() {
         <div>
             <h2 className="sr-only">Accounts</h2>
 
-            {accounts.map((account)=> (
-                <Account key={ account.id } type={ account.type } accountNumber={ account.accountNumber} amount={ account.amount } description={ account.description } />
+            {accounts.map((account, index)=> (
+                <Account key={ index } accountId={ account.id } type={ account.type } accountNumber={ account.accountNumber} amount={ account.amount } description={ account.description } />
             ))}
         </div>
         

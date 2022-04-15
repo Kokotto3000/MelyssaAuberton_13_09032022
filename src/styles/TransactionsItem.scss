@@ -6,9 +6,15 @@
     display: flex;
     &-content{
         width: 100%;
-        &--principal{
+        &-row{
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+        }
+        &-cell{
+            flex-basis: 20%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }

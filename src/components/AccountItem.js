@@ -1,13 +1,19 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getAccountTransactions } from '../features/transactions/transactionsSlice';
 import '../styles/Account.scss';
 
-function Account({ type, accountNumber, amount, description }) {
+function Account({ accountId, type, accountNumber, amount, description }) {
 
     const navigate= useNavigate();
+    const dispatch= useDispatch();
 
     const title= `Argent Bank ${ type } (${ accountNumber })`;
 
+    const token= useSelector(state=> state.user.token);
+
     function handleClick(){
+        dispatch(getAccountTransactions({"token": token, "accountId": accountId }));
         navigate("/transactions", { state: { title: title, amount: amount, description: description } });
     }
 

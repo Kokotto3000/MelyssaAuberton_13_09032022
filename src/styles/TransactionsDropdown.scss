@@ -1,6 +1,9 @@
 .transactions-dropdown{
+    width: 50%;
+    text-align: left;
     &--type, &--category, &--notes{
         display: flex;
+        justify-content: space-between;
         align-items: center;
         &-collapse{
             display: flex;

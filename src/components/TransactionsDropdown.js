@@ -3,11 +3,21 @@ import "../styles/TransactionsDropdown.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from "react-redux";
+import { updateTransactionCategory } from "../features/transactions/transactionsSlice";
 
 const pen= <FontAwesomeIcon icon={faPen} />;
 const check= <FontAwesomeIcon icon={faCircleCheck} />;
 
-function TransactionsDropdown({type, category, notes}){
+function TransactionsDropdown({type, category, notes, id}){
+
+    console.log(id)
+
+    const token= useSelector(state=> state.user.token);
+    const transaction= useSelector(state=> state.transactions.accountTransactions.find(transaction=> transaction.id === id));
+    console.log(transaction);
+
+    const dispatch= useDispatch();
     
     const [isCategoryCollapse, setCategoryCollapse]= useState(true);
     const [isNotesCollapse, setNotesCollapse]= useState(true);
@@ -16,22 +26,16 @@ function TransactionsDropdown({type, category, notes}){
 
     const { register, handleSubmit } = useForm();
     const onSubmitCategory = data => {
-        console.log(data);
-        setCategoryDisplay(data.categories);
-        handleCollapseCategory();
+        console.log(data.category)
+        dispatch(updateTransactionCategory({"token": token, "transactionId": id, "category": data.category}))
+        setCategoryDisplay(data.category);
+        setCategoryCollapse(true);
     }
     
     const onSubmitNotes = data => {
         console.log(data);
+
         setNotesDisplay(data.notes);
-        handleCollapseNotes();
-    }
-
-    function handleCollapseCategory(){
-        setCategoryCollapse(isCategoryCollapse? false : true);
-    }
-
-    function handleCollapseNotes(){
         setNotesCollapse(isNotesCollapse? false : true);
     }
 
@@ -48,11 +52,11 @@ function TransactionsDropdown({type, category, notes}){
                     { isCategoryCollapse ? 
                         <div className="transactions-dropdown--category-collapse">
                             <p>{categoryDisplay}</p>
-                            <button className="transactions-dropdown_button category edit-button" onClick={handleCollapseCategory}>{ pen }</button>
+                            <button className="transactions-dropdown_button category edit-button" onClick={()=> setCategoryCollapse(isCategoryCollapse? false : true)}>{ pen }</button>
                         </div>
                     :
                         <form onSubmit={handleSubmit(onSubmitCategory)} className="transactions-dropdown--category-collapse">
-                            <select name="categories" id="category-select" {...register("categories", { required: true })}>
+                            <select name="category" id="category-select" {...register("category", { required: true })}>
                                 <option value="">--Please choose a category--</option>
                                 <option value="Food">Food</option>
                                 <option value="Clothes">Clothes</option>
@@ -74,7 +78,7 @@ function TransactionsDropdown({type, category, notes}){
                 {isNotesCollapse ? 
                     <div className="transactions-dropdown--notes-collapse">
                         <p>{ notesDisplay }</p>
-                        <button className="transactions-dropdown_button category edit-button" onClick={handleCollapseNotes}>{ pen }</button>
+                        <button className="transactions-dropdown_button category edit-button" onClick={()=> setNotesCollapse(isNotesCollapse? false : true)}>{ pen }</button>
                     </div>
                 :
                     <form onSubmit={handleSubmit(onSubmitNotes)} className="transactions-dropdown--notes-collapse">

@@ -48,7 +48,7 @@ export const updateUser = createAsyncThunk(
         })
         .then(response=> response.json())
     }
-)
+);
 
 const initialState = {
     tokenData: [],

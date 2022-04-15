@@ -1,8 +1,9 @@
 import {useLocation, Navigate} from 'react-router-dom';
 import TransactionsHeader from '../components/TransactionsHeader';
-import transactions from '../datas/transactions';
+//import transactions from '../datas/transactions';
 import TransactionsItem from '../components/TransactionsItem';
 import "../styles/Transactions.scss";
+import { useSelector } from 'react-redux';
 
 
 function Transactions(){
@@ -10,6 +11,16 @@ function Transactions(){
 
     const location= useLocation();
     console.log(location.state);
+
+    const transactions= useSelector(state=> state.transactions.accountTransactions);
+    console.log(transactions);
+
+    let balance= location.state.amount;
+
+    function decrementBalance(amount){
+        balance= balance - amount;
+        return balance;
+    }
 
     return(
 
@@ -26,16 +37,18 @@ function Transactions(){
                 </div>
 
                 <div className="transactions_table-body">
-                    {transactions.map((element)=> (
+                    {transactions.map((element, index)=> (
                         <TransactionsItem 
-                            key={ element.id } 
-                            date={ element.date } 
+                            key={ index } 
+                            id={ element.id }
+                            date={ element.timestamp } 
                             amount={ element.amount } 
-                            description={ element.description } 
-                            balance={ element.balance } 
+                            correspondingUserId={ element.correspondingUserId } 
+                            balance={ balance } 
                             type={ element.type }
                             category={ element.category }
                             notes={ element.notes }
+                            previousBalance= { decrementBalance(element.amount) }
                         />
                     ))}
                 </div>

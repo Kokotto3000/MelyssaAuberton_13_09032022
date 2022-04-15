@@ -4,7 +4,7 @@ import TransactionsDropdown from "./TransactionsDropdown";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
-function TransactionsItem({date, amount, description, balance, type, category, notes}){
+function TransactionsItem({date, id, amount, correspondingUserId, balance, type, category, notes}){
     const chevronDownIcon= <FontAwesomeIcon icon={faChevronDown} />;
     const chevronUpIcon= <FontAwesomeIcon icon={faChevronUp} />;
 
@@ -34,11 +34,11 @@ function TransactionsItem({date, amount, description, balance, type, category, n
                 )}
 
                 <div className="transactions-item_details-content">
-                    <div className="transactions-item_details-content--principal">
-                        <p>{newDate}</p>
-                        <p>{description}</p>
-                        <p>{amount}</p>
-                        <p>{balance}</p>
+                    <div className="transactions-item_details-content-row">
+                        <p className="transactions-item_details-content-cell">{newDate}</p>
+                        <p className="transactions-item_details-content-cell">{correspondingUserId}</p>
+                        <p className="transactions-item_details-content-cell">{amount}</p>
+                        <p className="transactions-item_details-content-cell">{balance}</p>
                     </div>
 
                     {!isCollapse && 
@@ -46,6 +46,7 @@ function TransactionsItem({date, amount, description, balance, type, category, n
                             type={type} 
                             category={category}
                             notes={notes}
+                            id={id}
                         />
                     }
                     
