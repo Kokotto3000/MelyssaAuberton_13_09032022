@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import '../styles/Account.scss';
 
-function Account({ type, accountId, amount, description }) {
+function Account({ type, accountNumber, amount, description }) {
 
     const navigate= useNavigate();
 
-    const title= `Argent Bank ${ type } (${ accountId })`;
+    const title= `Argent Bank ${ type } (${ accountNumber })`;
 
     function handleClick(){
         navigate("/transactions", { state: { title: title, amount: amount, description: description } });

@@ -15,23 +15,23 @@ import Loader from './components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLocalDataUser } from './features/user/userSlice';
 import { useEffect } from 'react';
+import { getUserAccounts } from './features/accounts/accountsSlice';
 
 function App() {
 
     const dispatch= useDispatch();
 
     useEffect(()=> {
-        const token= sessionStorage.getItem("jwt");
-        if(token) dispatch(getLocalDataUser());
+        const token= sessionStorage.getItem("jwt")
+        const id= sessionStorage.getItem("id");
+        if(token && id) {
+            dispatch(getLocalDataUser());
+            dispatch(getUserAccounts({ "token": token, "userId": id}));
+        }
         return;
-    },[])
-
-    
+    },[dispatch]);
 
     const user= useSelector(state=> state.user);
-    //console.log(user.isLogin);
-
-    //page erreur ou redirection home ?
 
     return (
         <BrowserRouter>

@@ -1,19 +1,92 @@
 [
-	
     {
-        "title": "Argent Bank Checking (x8349)",
-        "amount": "$2,082.79",
-        "description" : "Available Balance"
+        "id": "7b6230a4-bc20-11ec-8422-0242ac120002",
+        "userId": "62344672eb03594efc51cf85",
+        "accountNumber": "x8349",
+        "type": "Checking",
+        "amount": 2082.79,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
     },
     {
-        "title": "Argent Bank Savings (x6712)",
-        "amount": "$10,928.42",
-        "description" : "Available Balance"
+        "id": "bd9a4fa0-bc21-11ec-8422-0242ac120002",
+        "userId": "62344672eb03594efc51cf85",
+        "accountNumber": "x6712",
+        "type": "Savings",
+        "amount": 10928.42,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
     },
     {
-        "title": "Argent Bank Credit Card (x8349)",
-        "amount": "$184.30",
-        "description" : "Current Balance"
+        "id": "b4f4cac4-bc21-11ec-8422-0242ac120002",
+        "userId": "62344672eb03594efc51cf85",
+        "accountNumber": "x8349",
+        "type": "Credit Card",
+        "amount": 10928.42,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
+    },
+    {
+        "id": "6bb21bc2-bc22-11ec-8422-0242ac120002",
+        "userId": "623120bf6da190213b119c90",
+        "accountNumber": "x8349",
+        "type": "Checking",
+        "amount": 2082.79,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
+    },
+    {
+        "id": "7704698a-bc22-11ec-8422-0242ac120002",
+        "userId": "623120bf6da190213b119c90",
+        "accountNumber": "x6712",
+        "type": "Savings",
+        "amount": 10928.42,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
+    },
+    {
+        "id": "7ebab602-bc22-11ec-8422-0242ac120002",
+        "userId": "623120bf6da190213b119c90",
+        "accountNumber": "x8349",
+        "type": "Credit Card",
+        "amount": 10928.42,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
+    },
+    {
+        "id": "850799d0-bc22-11ec-8422-0242ac120002",
+        "userId": "623120bf6da190213b119c91",
+        "accountNumber": "x8349",
+        "type": "Checking",
+        "amount": 2082.79,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
+    },
+    {
+        "id": "8dd58fa4-bc22-11ec-8422-0242ac120002",
+        "userId": "623120bf6da190213b119c91",
+        "accountNumber": "x6712",
+        "type": "Savings",
+        "amount": 10928.42,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
+    },
+    {
+        "id": "927100f2-bc22-11ec-8422-0242ac120002",
+        "userId": "623120bf6da190213b119c91",
+        "accountNumber": "x8349",
+        "type": "Credit Card",
+        "amount": 10928.42,
+        "description" : "Available Balance",
+        "createdAt" : "2022-03-15T23:26:55.628Z",
+        "updatedAt" : "2022-03-15T23:26:55.628Z"
     }
-
 ]

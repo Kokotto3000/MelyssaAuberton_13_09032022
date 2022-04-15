@@ -4,7 +4,6 @@ import transactions from '../datas/transactions';
 import TransactionsItem from '../components/TransactionsItem';
 import "../styles/Transactions.scss";
 
-//useEffect
 
 function Transactions(){
     document.title= "Transactions | ARGENT BANK";
