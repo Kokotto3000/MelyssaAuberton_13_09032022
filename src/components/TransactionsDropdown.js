@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/TransactionsDropdown.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +13,6 @@ function TransactionsDropdown({type, category, notes, id}){
 
     const token= useSelector(state=> state.user.token);
     const transaction= useSelector(state=> state.transactions.find(transaction=> transaction.id === id));
-    console.log(transaction)
 
     const dispatch= useDispatch();
     
@@ -47,7 +46,7 @@ function TransactionsDropdown({type, category, notes, id}){
 
                     { isCategoryCollapse ? 
                         <div className="transactions-dropdown--category-collapse">
-                            <p>{transaction.category}</p>
+                            <p>{ transaction.category }</p>
                             <button className="transactions-dropdown_button category edit-button" onClick={()=> setCategoryCollapse(isCategoryCollapse? false : true)}>{ pen }</button>
                         </div>
                     :

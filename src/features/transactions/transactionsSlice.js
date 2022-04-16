@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import transactions from '../../datas/transactions.json';
+
 /*export const getAccountTransactions= createAsyncThunk(
     'accounts/getAccountTransactions',
     async ({token, accountId })=>{
@@ -17,6 +18,7 @@ import transactions from '../../datas/transactions.json';
 
     }
 );*/
+
 export const getAccountTransactions= createAsyncThunk(
     'transactions/getAccountTransactions',
     ({token, accountId})=> {
@@ -47,10 +49,10 @@ export const getAccountTransactions= createAsyncThunk(
 export const updateTransactionCategory= createAsyncThunk(
     'transactions/updateTransactionCategory',
     ({token, transactionId, category})=> {
+        console.log(category);
         console.log("Authorization: " + token);
-        /*const transaction = transactions.find(transaction=> transaction.id === transactionId);
-        const index= transactions.indexOf(transaction);
-        return {"category": category, "index": index};*/
+
+        return {"category": category, "id": transactionId};
     }
 );
 
@@ -59,9 +61,8 @@ export const updateTransactionNotes= createAsyncThunk(
     ({token, transactionId, notes})=> {
         console.log(notes)
         console.log("Authorization: " + token);
-        /*const transaction = transactions.find(transaction=> transaction.id === transactionId);
-        const index= transactions.indexOf(transaction);
-        return {"notes": notes, "index": index};*/
+        
+        return {"notes": notes, "id": transactionId};
     }
 );
 
@@ -84,28 +85,37 @@ export const transactionsSlice= createSlice({
         builder
         .addCase(getAccountTransactions.fulfilled, (state, action)=> {
             action.payload.forEach(transaction=> {
-                state.push(transaction);
+                const accountTransaction= {
+                    ...transaction,
+                    status: "success",
+                    isLoading: false
+                }
+                state.push(accountTransaction);
+                //dispatch(updateLoadingStatus(false));
             })
             //state.push( action.payload);
             //state.status= "success";
             //state.loading= false;
         })
-        /*.addCase(updateTransactionCategory.fulfilled, (state, action)=> {
-            state.accountTransactions[action.payload.index].category= action.payload.category;
-            state.status= "success";
-            state.loading= false;
+        .addCase(updateTransactionCategory.fulfilled, (state, action)=> {
+            const transaction = state.find(transaction=> transaction.id === action.payload.id);
+            transaction.category= action.payload.category;
+            transaction.status= "success";
+            transaction.loading= false;
         })
         .addCase(updateTransactionNotes.fulfilled, (state, action)=> {
-            state.accountTransactions[action.payload.index].notes= action.payload.notes;
-            state.status= "success";
-            state.loading= false;
-        })*/        
+            const transaction = state.find(transaction=> transaction.id === action.payload.id);
+            transaction.notes= action.payload.notes;
+            transaction.status= "success";
+            transaction.loading= false;
+        })      
         .addMatcher(
             isPendingAction,
             // `action` will be inferred as a PendingAction due to ispendingAction being defined as a type guard
             (state, action) => {
                 //state.status = 'updating';
                 //state.loading= true;
+                //dispatch(updateLoadingStatus(true));
             }
         )
         .addMatcher(
@@ -115,6 +125,7 @@ export const transactionsSlice= createSlice({
                 console.log(action);
                 //state.status = 'failed';
                 //state.loading= false;
+                //dispatch(updateLoadingStatus(false));
             }
         )
     }
