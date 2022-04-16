@@ -12,8 +12,8 @@ function Account({ accountId, type, accountNumber, amount, description }) {
 
     const token= useSelector(state=> state.user.token);
 
-    function handleClick(){
-        dispatch(getAccountTransactions({"token": token, "accountId": accountId }));
+    async function handleClick(){
+        await dispatch(getAccountTransactions({"token": token, "accountId": accountId }));
         navigate("/transactions", { state: { title: title, amount: amount, description: description } });
     }
 

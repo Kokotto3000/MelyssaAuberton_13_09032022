@@ -13,7 +13,6 @@ import Profile from './pages/Profile';
 import Transactions from './pages/Transactions';
 import Loader from './components/Loader';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLocalDataUser } from './features/user/userSlice';
 import { useEffect } from 'react';
 import { getUserAccounts } from './features/accounts/accountsSlice';
 
@@ -29,7 +28,7 @@ function App() {
             dispatch(getUserAccounts({ "token": user.token, "userId": user.id}));
         }
         return;
-    },[dispatch]);
+    },[dispatch, user.token, user.id, user.isLogin]);
 
     return (
         <BrowserRouter>

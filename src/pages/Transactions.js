@@ -1,16 +1,24 @@
-import {useLocation, Navigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import TransactionsHeader from '../components/TransactionsHeader';
 //import transactions from '../datas/transactions';
 import TransactionsItem from '../components/TransactionsItem';
 import "../styles/Transactions.scss";
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 function Transactions(){
     document.title= "Transactions | ARGENT BANK";
 
     const location= useLocation();
-    const transactions= useSelector(state=> state.transactions.accountTransactions);
+    const navigate= useNavigate();
+    const transactions= useSelector(state=> state.transactions);
+
+    useEffect(()=> {
+        if(transactions.length === 0){
+            navigate('/profile');
+        }
+    },[]);
 
     let balance= location.state.amount;
 

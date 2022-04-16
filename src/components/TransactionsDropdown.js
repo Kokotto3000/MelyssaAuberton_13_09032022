@@ -12,8 +12,7 @@ const check= <FontAwesomeIcon icon={faCircleCheck} />;
 function TransactionsDropdown({type, category, notes, id}){
 
     const token= useSelector(state=> state.user.token);
-    const transactions= useSelector(state=> state.transactions);
-    const transaction= transactions.accountTransactions.find(transaction=> transaction.id === id);
+    const transaction= useSelector(state=> state.transactions.find(transaction=> transaction.id === id));
     console.log(transaction)
 
     const dispatch= useDispatch();
