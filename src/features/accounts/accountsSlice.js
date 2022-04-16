@@ -21,7 +21,7 @@ import accounts from '../../datas/accounts.json';
 export const getUserAccounts= createAsyncThunk(
     'accounts/getUserAccounts',
     ({token, userId})=> {
-        console.log("Authorization: " + token);
+        //console.log("Authorization: " + token);
         return accounts.filter(account=> account.userId === userId);
     }
 )

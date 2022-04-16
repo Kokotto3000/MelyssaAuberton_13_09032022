@@ -49,9 +49,19 @@ export const updateTransactionCategory= createAsyncThunk(
     ({token, transactionId, category})=> {
         console.log("Authorization: " + token);
         const transaction = transactions.find(transaction=> transaction.id === transactionId);
-        //transaction.category= category;
         const index= transactions.indexOf(transaction);
         return {"category": category, "index": index};
+    }
+);
+
+export const updateTransactionNotes= createAsyncThunk(
+    'transactions/updateTransactionNotes',
+    ({token, transactionId, notes})=> {
+        console.log(notes)
+        console.log("Authorization: " + token);
+        const transaction = transactions.find(transaction=> transaction.id === transactionId);
+        const index= transactions.indexOf(transaction);
+        return {"notes": notes, "index": index};
     }
 );
 
@@ -82,24 +92,18 @@ export const transactionsSlice= createSlice({
             state.loading= false;
         })
         .addCase(updateTransactionCategory.fulfilled, (state, action)=> {
-            console.log(action.payload);
-            //const transaction = transactions.find(transaction=> transaction.id === payload.id);
-            //transaction.category= category;
             state.accountTransactions[action.payload.index].category= action.payload.category;
             state.status= "success";
             state.loading= false;
         })
-        /*.addCase(getAccountTransactions.pending, (state) => {
-            state.status= "updating";
-            state.loading= true;
-        })
-        .addCase(getAccountTransactions.rejected, (state, action) => {
-            state.status = 'failed';
+        .addCase(updateTransactionNotes.fulfilled, (state, action)=> {
+            state.accountTransactions[action.payload.index].notes= action.payload.notes;
+            state.status= "success";
             state.loading= false;
-        })*/
+        })        
         .addMatcher(
             isPendingAction,
-            // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
+            // `action` will be inferred as a PendingAction due to ispendingAction being defined as a type guard
             (state, action) => {
                 state.status = 'updating';
                 state.loading= true;

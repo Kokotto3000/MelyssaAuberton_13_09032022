@@ -4,38 +4,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from "react-redux";
-import { updateTransactionCategory } from "../features/transactions/transactionsSlice";
+import { updateTransactionCategory, updateTransactionNotes } from "../features/transactions/transactionsSlice";
 
 const pen= <FontAwesomeIcon icon={faPen} />;
 const check= <FontAwesomeIcon icon={faCircleCheck} />;
 
 function TransactionsDropdown({type, category, notes, id}){
 
-    console.log(id)
-
     const token= useSelector(state=> state.user.token);
-    const transaction= useSelector(state=> state.transactions.accountTransactions.find(transaction=> transaction.id === id));
-    console.log(transaction);
+    const transactions= useSelector(state=> state.transactions);
+    const transaction= transactions.accountTransactions.find(transaction=> transaction.id === id);
+    console.log(transaction)
 
     const dispatch= useDispatch();
     
     const [isCategoryCollapse, setCategoryCollapse]= useState(true);
     const [isNotesCollapse, setNotesCollapse]= useState(true);
-    const [categoryDisplay, setCategoryDisplay]= useState(category);
-    const [notesDisplay, setNotesDisplay]= useState(notes);
+    //const [categoryDisplay, setCategoryDisplay]= useState(category);
+    //const [notesDisplay, setNotesDisplay]= useState(notes);
 
     const { register, handleSubmit } = useForm();
     const onSubmitCategory = data => {
-        console.log(data.category)
-        dispatch(updateTransactionCategory({"token": token, "transactionId": id, "category": data.category}))
-        setCategoryDisplay(data.category);
+        dispatch(updateTransactionCategory({"token": token, "transactionId": id, "category": data.category}));
+        //setCategoryDisplay(data.category);
         setCategoryCollapse(true);
     }
     
     const onSubmitNotes = data => {
-        console.log(data);
-
-        setNotesDisplay(data.notes);
+        dispatch(updateTransactionNotes({"token": token, "transactionId": id, "notes": data.notes}));
+        //setNotesDisplay(data.notes);
         setNotesCollapse(isNotesCollapse? false : true);
     }
 
@@ -51,7 +48,7 @@ function TransactionsDropdown({type, category, notes, id}){
 
                     { isCategoryCollapse ? 
                         <div className="transactions-dropdown--category-collapse">
-                            <p>{categoryDisplay}</p>
+                            <p>{transaction.category}</p>
                             <button className="transactions-dropdown_button category edit-button" onClick={()=> setCategoryCollapse(isCategoryCollapse? false : true)}>{ pen }</button>
                         </div>
                     :
@@ -77,7 +74,7 @@ function TransactionsDropdown({type, category, notes, id}){
 
                 {isNotesCollapse ? 
                     <div className="transactions-dropdown--notes-collapse">
-                        <p>{ notesDisplay }</p>
+                        <p>{ transaction.notes }</p>
                         <button className="transactions-dropdown_button category edit-button" onClick={()=> setNotesCollapse(isNotesCollapse? false : true)}>{ pen }</button>
                     </div>
                 :

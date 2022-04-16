@@ -16,7 +16,6 @@ function TransactionsItem({date, id, amount, correspondingUserId, balance, type,
 
     let options = {year: "numeric", month: "long", day: "numeric"};
     const newDate= new Date(date).toLocaleDateString('en-EN', options);
-    console.log(newDate)
 
     return(
 

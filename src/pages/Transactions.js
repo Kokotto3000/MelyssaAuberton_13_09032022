@@ -10,10 +10,7 @@ function Transactions(){
     document.title= "Transactions | ARGENT BANK";
 
     const location= useLocation();
-    console.log(location.state);
-
     const transactions= useSelector(state=> state.transactions.accountTransactions);
-    console.log(transactions);
 
     let balance= location.state.amount;
 
@@ -37,29 +34,24 @@ function Transactions(){
                 </div>
 
                 <div className="transactions_table-body">
-                    {transactions.map((element, index)=> (
+                    {transactions.map((transaction, index)=> (
                         <TransactionsItem 
                             key={ index } 
-                            id={ element.id }
-                            date={ element.timestamp } 
-                            amount={ element.amount } 
-                            correspondingUserId={ element.correspondingUserId } 
+                            id={ transaction.id }
+                            date={ transaction.timestamp } 
+                            amount={ transaction.amount } 
+                            correspondingUserId={ transaction.correspondingUserId } 
                             balance={ balance } 
-                            type={ element.type }
-                            category={ element.category }
-                            notes={ element.notes }
-                            previousBalance= { decrementBalance(element.amount) }
+                            type={ transaction.type }
+                            category={ transaction.category }
+                            notes={ transaction.notes }
+                            previousBalance= { decrementBalance(transaction.amount) }
                         />
                     ))}
                 </div>
-
-                
                 
             </div>
-
-            
         </main>
-        
     )
 }
 
