@@ -18,6 +18,7 @@ import accounts from '../../datas/accounts.json';
 
     }
 );*/
+
 export const getUserAccounts= createAsyncThunk(
     'accounts/getUserAccounts',
     ({token, userId})=> {
@@ -27,9 +28,7 @@ export const getUserAccounts= createAsyncThunk(
 )
 
 const initialState= {
-    userAccounts: [],
-    loading: false,
-    status: 'idle'
+    userAccounts: []
 };
 
 export const accountsSlice= createSlice({
@@ -39,20 +38,8 @@ export const accountsSlice= createSlice({
         builder
         .addCase(getUserAccounts.fulfilled, (state, action)=> {
             state.userAccounts= action.payload;
-            state.status= "success";
-            state.loading= false;
-        })
-        .addCase(getUserAccounts.pending, (state) => {
-            state.status= "updating";
-            state.loading= true;
-        })
-        .addCase(getUserAccounts.rejected, (state, action) => {
-            state.status = 'failed';
-            state.loading= false;
         })
     }
 });
-
-//export const { getUserAccounts }= accountsSlice.actions;
 
 export default accountsSlice.reducer;

@@ -21,7 +21,9 @@ function App() {
     const dispatch= useDispatch();
 
     const user= useSelector(state=> state.user);
-    const accounts= useSelector(state=> state.accounts);
+    /*const accounts= useSelector(state=> state.accounts);
+    const transactions= useSelector(state=> state.transactions);*/
+    const utils= useSelector(state=> state.utils);
 
     useEffect(()=> {
         if(user.isLogin) {
@@ -34,7 +36,7 @@ function App() {
         <BrowserRouter>
             <Nav />
 
-            { (user.loading || accounts.loading) && <Loader /> }
+            { utils.loading && <Loader /> }
             
             <Routes>
                 <Route exact path="/" element={<Home />} />

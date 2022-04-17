@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/user/userSlice';
 import accountsReducer from '../features/accounts/accountsSlice';
 import transactionsReducer from '../features/transactions/transactionsSlice';
+import utilsReducer from '../features/utils/utilsSlice';
 
 const preloadedState = {
   user: {
@@ -15,6 +16,7 @@ const preloadedState = {
 
 export const store = configureStore({
   reducer: {
+    utils: utilsReducer,
     user: userReducer,
     accounts: accountsReducer,
     transactions: transactionsReducer

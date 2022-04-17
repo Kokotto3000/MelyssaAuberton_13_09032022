@@ -12,7 +12,7 @@ function Transactions(){
 
     const location= useLocation();
     const navigate= useNavigate();
-    const transactions= useSelector(state=> state.transactions);
+    const transactions= useSelector(state=> state.transactions.accountTransactions);
 
     useEffect(()=> {
         if(transactions.length === 0){

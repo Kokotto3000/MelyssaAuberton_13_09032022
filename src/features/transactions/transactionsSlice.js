@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isFulfilled } from "@reduxjs/toolkit";
 import transactions from '../../datas/transactions.json';
 
 /*export const getAccountTransactions= createAsyncThunk(
@@ -66,17 +66,9 @@ export const updateTransactionNotes= createAsyncThunk(
     }
 );
 
-function isRejectedAction(action) {
-    return action.type.endsWith('rejected');
+const initialState= {
+    accountTransactions: []
 };
-
-function isPendingAction(action) {
-    return action.type.endsWith('pending');
-};
-
-const initialState= [];
-
-//voir autre syntaxe sans builder
 
 export const transactionsSlice= createSlice({
     name: "transactions",
@@ -84,50 +76,16 @@ export const transactionsSlice= createSlice({
     extraReducers: (builder)=>{
         builder
         .addCase(getAccountTransactions.fulfilled, (state, action)=> {
-            action.payload.forEach(transaction=> {
-                const accountTransaction= {
-                    ...transaction,
-                    status: "success",
-                    isLoading: false
-                }
-                state.push(accountTransaction);
-                //dispatch(updateLoadingStatus(false));
-            })
-            //state.push( action.payload);
-            //state.status= "success";
-            //state.loading= false;
+            state.accountTransactions= action.payload
         })
         .addCase(updateTransactionCategory.fulfilled, (state, action)=> {
-            const transaction = state.find(transaction=> transaction.id === action.payload.id);
+            const transaction = state.accountTransactions.find(transaction=> transaction.id === action.payload.id);
             transaction.category= action.payload.category;
-            transaction.status= "success";
-            transaction.loading= false;
         })
         .addCase(updateTransactionNotes.fulfilled, (state, action)=> {
-            const transaction = state.find(transaction=> transaction.id === action.payload.id);
+            const transaction = state.accountTransactions.find(transaction=> transaction.id === action.payload.id);
             transaction.notes= action.payload.notes;
-            transaction.status= "success";
-            transaction.loading= false;
-        })      
-        .addMatcher(
-            isPendingAction,
-            // `action` will be inferred as a PendingAction due to ispendingAction being defined as a type guard
-            (state, action) => {
-                //state.status = 'updating';
-                //state.loading= true;
-                //dispatch(updateLoadingStatus(true));
-            }
-        )
-        .addMatcher(
-            isRejectedAction,
-            // `action` will be inferred as a RejectedAction due to isRejectedAction being defined as a type guard
-            (state, action) => {
-                console.log(action);
-                //state.status = 'failed';
-                //state.loading= false;
-                //dispatch(updateLoadingStatus(false));
-            }
-        )
+        })
     }
 });
 

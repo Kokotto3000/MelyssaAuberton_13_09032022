@@ -53,9 +53,7 @@ export const updateUser = createAsyncThunk(
 const initialState = {
     tokenData: [],
     data: [],
-    loading: false,
     isLogin: false,
-    status: 'idle',
     remember: false,
     token: "",
     firstName: "",
@@ -103,15 +101,6 @@ export const userSlice= createSlice({
                 state.status= 'failed';
                 console.log(state.tokenData.message);
             }
-            state.loading= false;
-        })
-        .addCase(loginUser.pending, (state) => {
-            state.status = 'updating';
-            state.loading =  true;
-        })
-        .addCase(loginUser.rejected, (state, action) => {
-            state.status = 'failed';
-            state.loading= false;
         })
         .addCase(getUser.fulfilled, (state, action)=> {
             state.data= action.payload;
@@ -129,15 +118,6 @@ export const userSlice= createSlice({
                 state.status= 'failed';
                 console.log(state.tokenData.message);
             }
-            state.loading= false;
-        })
-        .addCase(getUser.pending, (state) => {
-            state.status = 'updating';
-            state.loading =  true;
-        })
-        .addCase(getUser.rejected, (state, action) => {
-            state.status = 'failed';
-            state.loading= false;
         })
         .addCase(updateUser.fulfilled, (state, action)=> {
             state.data= action.payload;
@@ -151,20 +131,9 @@ export const userSlice= createSlice({
                 state.status= 'failed';
                 console.log(state.data.message);
             }
-            state.loading= false;
-        })
-        .addCase(updateUser.pending, (state) => {
-            state.status = 'updating';
-            state.loading =  true;
-        })
-        .addCase(updateUser.rejected, (state, action) => {
-            state.status = 'failed';
-            state.loading= false;
         })
     }
 });
-
-//export const userToken = (state) => state.user.tokenData.body.token;
 
 export const { logoutUser, toggleRememberUser, getLocalDataUser }= userSlice.actions;
 
