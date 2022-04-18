@@ -37,8 +37,8 @@ function Nav() {
 
             {user.isLogin && user.firstName && user.lastName ? 
                 <div className="main-nav_sign-out">
-                    <Link to="/profile">{ userCircle } {user.firstName}</Link>
-                    <button className="main-nav_sign-out_button" onClick={ handleLogout }>
+                    <Link to="/profile" className="main-nav-item active">{ userCircle } {user.firstName}</Link>
+                    <button className="main-nav-item_sign-out-button" onClick={ handleLogout }>
                         { signOutIcon } Sign Out
                     </button>
                 </div>

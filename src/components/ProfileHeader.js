@@ -2,24 +2,31 @@ import { useRef, useState } from 'react';
 import '../styles/ProfileHeader.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../features/user/userSlice';
+import { useForm } from "react-hook-form";
 
 function ProfileHeader() {
 
     const user= useSelector(state=> state.user);
 
     const dispatch= useDispatch();
+    const { 
+        register,
+        handleSubmit,
+        formState: { errors } 
+    } = useForm();
 
-    const firstNameInput= useRef("");
-    const lastNameInput=useRef("");
+    //const firstNameInput= useRef("");
+    //const lastNameInput=useRef("");
 
     const [isCollapse, setCollapse]= useState(true);
 
-    function handleSubmit(e){
-        e.preventDefault();
+    function onSubmit(data){
+        console.log(data)
+        //e.preventDefault();
         dispatch(updateUser({ 
             "token": user.token, 
-            "firstName": firstNameInput.current.value || user.firstName , 
-            "lastName": lastNameInput.current.value || user.lastName
+            "firstName": data.firstName || user.firstName , 
+            "lastName": data.lastName || user.lastName
         }));
         setCollapse(true);
     }
@@ -34,13 +41,55 @@ function ProfileHeader() {
             
             <header className="header">
                 <h1>Welcome back</h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <input type="text" name="firstName" placeholder={""} id="firstName" ref={firstNameInput} defaultValue={user.firstName} ></input>
-                        <input type="text" name="lastName" placeholder={""} id="lastName" ref={lastNameInput} defaultValue={user.lastName} ></input>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className='profile-header_inputs'>
+                        <div className="profile-header_input">
+                            <input 
+                                type="text" 
+                                name="firstName" 
+                                id="firstName" 
+                                defaultValue={user.firstName} 
+                                {...register(
+                                    "firstName", { 
+                                        pattern: { 
+                                        value: /^[A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ_\s-]+$/i, 
+                                        message: "invalid field name" 
+                                        },
+                                        maxLength: {
+                                            value: 30,
+                                            message : "max length exceeded"
+                                        }
+                                    }
+                                )} 
+                            />
+                            {errors.firstName && (
+                                <span role="alert">{errors?.firstName.message}</span>
+                            )}
+                        </div>
+                        <div className="profile-header_input">
+                            <input 
+                                type="text" 
+                                name="lastName" 
+                                id="lastName" 
+                                defaultValue={user.lastName} 
+                                {...register("lastName", {
+                                    pattern: {
+                                        value: /^[A-Za-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ_\s-]+$/i, 
+                                        message: "invalid field name" 
+                                    },
+                                    maxLength: {
+                                        value: 30,
+                                        message : "max length exceeded"
+                                    }
+                                })} 
+                            />
+                            {errors.lastName && (
+                                <span role="alert">{errors?.lastName.message}</span>
+                            )}
+                        </div>
                     </div>
 
-                    <div>
+                    <div className="profile-header_buttons">
                         <button type="submit">Save</button>
                         <button onClick={handleClick}>Cancel</button>
                     </div>

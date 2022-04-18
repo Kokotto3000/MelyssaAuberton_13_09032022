@@ -22,7 +22,6 @@ function LoginForm() {
                 const token= response.payload.body.token;
                 dispatch(getUser({ "token": token }))
                 .then(response=> {
-                    console.log(response)
                     if(response.payload.status === 200) {
                         dispatch(getUserAccounts({ "token": token, "userId": response.payload.body.id }))
                     }

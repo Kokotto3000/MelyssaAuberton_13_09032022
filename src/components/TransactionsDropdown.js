@@ -18,26 +18,26 @@ function TransactionsDropdown({type, category, notes, id}){
     
     const [isCategoryCollapse, setCategoryCollapse]= useState(true);
     const [isNotesCollapse, setNotesCollapse]= useState(true);
-    //const [categoryDisplay, setCategoryDisplay]= useState(category);
-    //const [notesDisplay, setNotesDisplay]= useState(notes);
 
-    const { register, handleSubmit } = useForm();
+    const { register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
+
     const onSubmitCategory = data => {
         dispatch(updateTransactionCategory({"token": token, "transactionId": id, "category": data.category}));
-        //setCategoryDisplay(data.category);
         setCategoryCollapse(true);
     }
     
     const onSubmitNotes = data => {
         dispatch(updateTransactionNotes({"token": token, "transactionId": id, "notes": data.notes}));
-        //setNotesDisplay(data.notes);
         setNotesCollapse(isNotesCollapse? false : true);
     }
 
     return(
         <div className="transactions-dropdown">
             <div className="transactions-dropdown--type">
-                <p>Transaction type:</p>
+                <label>Transaction type:</label>
                 <p>{ type }</p>
             </div>
 
@@ -51,7 +51,7 @@ function TransactionsDropdown({type, category, notes, id}){
                         </div>
                     :
                         <form onSubmit={handleSubmit(onSubmitCategory)} className="transactions-dropdown--category-collapse">
-                            <select name="category" id="category-select" {...register("category", { required: true })}>
+                            <select name="category" id="category-select" {...register("category")}>
                                 <option value="">--Please choose a category--</option>
                                 <option value="Food">Food</option>
                                 <option value="Clothes">Clothes</option>
@@ -60,7 +60,7 @@ function TransactionsDropdown({type, category, notes, id}){
                                 <option value="Hobbies">Hobbies</option>
                                 <option value="Other">Other</option>
                             </select>
-                            <button type="submit">{check}</button>
+                            <button type="submit" className="edit-button">{check}</button>
                         </form>
                         
                     }
@@ -77,8 +77,14 @@ function TransactionsDropdown({type, category, notes, id}){
                     </div>
                 :
                     <form onSubmit={handleSubmit(onSubmitNotes)} className="transactions-dropdown--notes-collapse">
-                        <textarea id="notes" name="notes" rows="5" cols="33" {...register("notes")}></textarea>
-                        <button type="submit">{check}</button>
+                        <div>
+                            <textarea id="notes" name="notes" {...register("notes", {maxLength: 30})}></textarea>
+                            {errors.notes && errors.notes.type === "maxLength" && (
+                                <span role="alert">Max length exceeded</span>
+                            )}
+                        </div>
+                        
+                        <button type="submit" className="edit-button">{check}</button>
                     </form>
 
                 }

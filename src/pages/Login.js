@@ -1,4 +1,4 @@
-import '../styles/SignIn.scss';
+import '../styles/Login.scss';
 import LoginForm from '../components/LoginForm';
 
 //dans login mon reducer sera appelé avec le bouton

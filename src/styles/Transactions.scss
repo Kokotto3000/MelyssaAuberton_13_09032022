@@ -22,3 +22,12 @@
         flex-basis: 25%;
     }
 }
+
+.transactions_table-body{
+    :nth-child(odd).transactions-item{
+        background-color: white;
+    }
+    :nth-child(even).transactions-item{
+        background-color: aliceblue;
+    }
+}

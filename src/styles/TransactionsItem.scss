@@ -1,11 +1,9 @@
-.transactions-item{
-    background-color: white;
-}
-
 .transactions-item_details{
     display: flex;
+    color: #2c3e50;
     &-content{
         width: 100%;
+        padding: 0.5rem;
         &-row{
             display: flex;
             justify-content: space-between;
@@ -15,10 +13,22 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            &--amount{
+                font-weight: bold;
+                color: #00bc77;
+            }
+            &--balance{
+                font-size: 1.1rem;
+                font-weight: bold;
+            }
         }
     }
 }
 
 .transactions-item_button{
     display: flex;
+}
+
+.negatif{
+    color: red;
 }

@@ -36,8 +36,8 @@ function TransactionsItem({date, id, amount, correspondingUserId, balance, type,
                     <div className="transactions-item_details-content-row">
                         <p className="transactions-item_details-content-cell">{newDate}</p>
                         <p className="transactions-item_details-content-cell">{correspondingUserId}</p>
-                        <p className="transactions-item_details-content-cell">{amount}</p>
-                        <p className="transactions-item_details-content-cell">{balance}</p>
+                        <p className={Math.sign(amount) === -1 ?"transactions-item_details-content-cell--amount negatif" : "transactions-item_details-content-cell--amount"}>${amount}</p>
+                        <p className="transactions-item_details-content-cell--balance">${balance}</p>
                     </div>
 
                     {!isCollapse && 

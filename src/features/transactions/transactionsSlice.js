@@ -22,7 +22,7 @@ import transactions from '../../datas/transactions.json';
 export const getAccountTransactions= createAsyncThunk(
     'transactions/getAccountTransactions',
     ({token, accountId})=> {
-        console.log("Authorization: " + token);
+        //console.log("Authorization: " + token);
         const accountTransactions = transactions.filter(transaction=> transaction.accountId === accountId);
         return accountTransactions.sort((a,b)=> (b.timestamp).localeCompare(a.timestamp));
     }
@@ -49,9 +49,7 @@ export const getAccountTransactions= createAsyncThunk(
 export const updateTransactionCategory= createAsyncThunk(
     'transactions/updateTransactionCategory',
     ({token, transactionId, category})=> {
-        console.log(category);
-        console.log("Authorization: " + token);
-
+        //console.log("Authorization: " + token);
         return {"category": category, "id": transactionId};
     }
 );
@@ -59,9 +57,7 @@ export const updateTransactionCategory= createAsyncThunk(
 export const updateTransactionNotes= createAsyncThunk(
     'transactions/updateTransactionNotes',
     ({token, transactionId, notes})=> {
-        console.log(notes)
-        console.log("Authorization: " + token);
-        
+        //console.log("Authorization: " + token);
         return {"notes": notes, "id": transactionId};
     }
 );
