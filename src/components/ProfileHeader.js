@@ -15,14 +15,9 @@ function ProfileHeader() {
         formState: { errors } 
     } = useForm();
 
-    //const firstNameInput= useRef("");
-    //const lastNameInput=useRef("");
-
     const [isCollapse, setCollapse]= useState(true);
 
     function onSubmit(data){
-        console.log(data)
-        //e.preventDefault();
         dispatch(updateUser({ 
             "token": user.token, 
             "firstName": data.firstName || user.firstName , 

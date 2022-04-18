@@ -23,6 +23,8 @@ function App() {
     const user= useSelector(state=> state.user);
     const utils= useSelector(state=> state.utils);
 
+    console.log(user.isLogin)
+
     useEffect(()=> {
         if(user.isLogin) {
             dispatch(getUserAccounts({ "token": user.token, "userId": user.id}));

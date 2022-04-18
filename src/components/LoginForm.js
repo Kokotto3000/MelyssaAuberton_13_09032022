@@ -1,47 +1,53 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, loginUser, toggleRememberUser } from '../features/user/userSlice';
 import { useRef } from "react";
-import { getUserAccounts } from "../features/accounts/accountsSlice";
+//import { getUserAccounts } from "../features/accounts/accountsSlice";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from "yup";
 
 function LoginForm() {
     const user= useSelector(state=> state.user);
     const dispatch= useDispatch();
+
+    const schema = Yup.object({
+        email: Yup.string()
+            .email("invalid email")
+            .required("email is required"),
+        password: Yup.string()
+            .required("password is required")
+    });
+
+    const { register, handleSubmit, formState:{ errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
     
-    
-    const email= useRef(null);
-    const password= useRef(null);
     const remember= useRef(false);
 
     const localEmail= localStorage.getItem("email") || undefined;
 
-    async function handleSubmit(e){
-        e.preventDefault();
-        await dispatch(loginUser({"email" : email.current.value, "password": password.current.value }))
+    async function onSubmit(data){
+        
+        await dispatch(loginUser({"email" : data.email, "password": data.password }))
         .then(response=> {
-            if(response.payload.status === 200) {
-                const token= response.payload.body.token;
-                dispatch(getUser({ "token": token }))
-                .then(response=> {
-                    if(response.payload.status === 200) {
-                        dispatch(getUserAccounts({ "token": token, "userId": response.payload.body.id }))
-                    }
-                })
+            if(response.payload?.status === 200) {
+                dispatch(getUser({"token": response.payload.body.token}));
             }
-            email.current.focus();
-            return;
         })
-        .catch(error=> console.log("login : " + error))
+        .catch(error=> console.log("login : " + error));
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="input-wrapper">
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" id="email" ref={email}  defaultValue={localEmail} />
+                <input type="email" name="email" id="email" {...register("email")}  defaultValue={localEmail} />
+                <span role="alert">{errors?.email?.message}</span>
             </div>
             <div className="input-wrapper">
                 <label htmlFor="password">Password</label>
-                <input type="password" name="password" id="password" ref={password} />
+                <input type="password" name="password" id="password" {...register("password")} />
+                <span role="alert">{errors?.password?.message}</span>
             </div>
             <div className="input-remember">
                 <input type="checkbox" id="remember-me" name="remember" onChange={()=> dispatch(toggleRememberUser(remember.current.checked))}  ref={remember} defaultChecked={ localEmail ? true : false } /> 
