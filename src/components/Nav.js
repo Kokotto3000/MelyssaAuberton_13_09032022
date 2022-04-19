@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../features/user/userSlice';
 
-
 const userCircle= <FontAwesomeIcon icon={faUserCircle} />;
 const signOutIcon= <FontAwesomeIcon icon={faArrowRightFromBracket} />;
 
 function Nav() {
+
     const user= useSelector(state=> state.user);
 
     const dispatch= useDispatch();

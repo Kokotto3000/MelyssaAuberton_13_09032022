@@ -99,7 +99,7 @@ function ProfileHeader() {
         <div className="header">
             <h1>Welcome back</h1>
             
-            <h2>{user.firstName} {user.lastName}</h2>
+            <h2>{user.firstName} {user.lastName} !</h2>
             
             <button className="edit-button" disabled={user.loading} onClick={handleClick}>Edit Name</button>
         </div>

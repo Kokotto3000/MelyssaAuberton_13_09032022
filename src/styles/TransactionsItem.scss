@@ -14,10 +14,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
             &--amount{
+                flex-basis: 20%;
                 font-weight: bold;
                 color: #00bc77;
             }
             &--balance{
+                flex-basis: 20%;
                 font-size: 1.1rem;
                 font-weight: bold;
             }

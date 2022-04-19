@@ -54,7 +54,7 @@ function LoginForm() {
                 <label htmlFor="remember-me">Remember me</label>
             </div>
 
-            { user.status === "failed" && <div>Les identifiants sont invalides...</div> }
+            { user.status === "failed" && <span role="alert">Credentials are invalid...</span> }
             
             <button type="submit" disabled={user.loading} className="sign-in-button">Sign In</button> 
         </form>

@@ -58,7 +58,8 @@ const initialState = {
     token: "",
     firstName: "",
     lastName: "",
-    id: ""
+    id: "",
+    status: 'idle',
 };
   
 
@@ -93,11 +94,11 @@ export const userSlice= createSlice({
         .addCase(loginUser.fulfilled, (state, action)=> {
             state.tokenData=action.payload;
             if(state.tokenData.status === 200){
-                //state.status= 'success';
+                state.status= 'success';
                 state.token= action.payload.body.token;
                 sessionStorage.setItem("jwt", action.payload.body.token);
             }else if(state.tokenData.status === 400){
-                //state.status= 'failed';
+                state.status= 'failed';
                 console.log(state.tokenData.message);
             }
         })
@@ -105,7 +106,7 @@ export const userSlice= createSlice({
             state.data= action.payload;
             if(state.data.status === 200){
                 state.isLogin= true;
-                //state.status= 'success';
+                state.status= 'success';
                 state.firstName= action.payload.body.firstName;
                 sessionStorage.setItem("firstName", action.payload.body.firstName);
                 state.lastName= action.payload.body.lastName;
@@ -115,7 +116,7 @@ export const userSlice= createSlice({
                 if(state.remember) localStorage.setItem("email", action.payload.body.email);
                 else localStorage.clear();
             }else if(state.data.status === 400){
-                //state.status= 'failed';
+                state.status= 'failed';
                 console.log(state.tokenData.message);
             }
         })
@@ -126,9 +127,9 @@ export const userSlice= createSlice({
                 sessionStorage.setItem("firstName", action.payload.body.firstName);
                 state.lastName= action.payload.body.lastName;
                 sessionStorage.setItem("lastName", action.payload.body.lastName);
-                //state.status= 'success';
+                state.status= 'success';
             }else if(state.data.status === 400){
-                //state.status= 'failed';
+                state.status= 'failed';
                 console.log(state.data.message);
             }
         })

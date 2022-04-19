@@ -1,16 +1,17 @@
 import '../styles/Login.scss';
 import LoginForm from '../components/LoginForm';
 
-//dans login mon reducer sera appelé avec le bouton
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 function Login() {
     document.title= "Login | ARGENT BANK";
     
     return (
-        <main className="main bg-dark">
+        <main id="login" className="main bg-dark">
 
             <section className="sign-in-content">
-                <i className="fa fa-user-circle sign-in-icon"></i>
+                <FontAwesomeIcon icon={faUserCircle} />
                 <h1>Sign In</h1>
                 <LoginForm />
             </section>
